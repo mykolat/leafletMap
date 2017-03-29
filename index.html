@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>leaflet-sidebar example</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+    <link rel="stylesheet" href="../src/L.Control.Sidebar.css"/>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.ie.css"/><![endif]-->
+
+    <style>
+        body {
+            padding: 30px;
+            font-family: sans-serif;
+        }
+
+        #map {
+            width: 100%;
+            height: 600px;
+            border-radius: 10px;
+        }
+
+        #sidebar {
+            padding: 24px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+<div id="sidebar"></div>
+<div id="map"></div>
+
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+<script src="../src/L.Control.Sidebar.js"></script>
+
+<script>
+    var mapService = function () {
+        var map, markerActive = false;
+
+        function init() {
+            map = L.map('map');
+
+            L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; OpenStreetMap contributors'
+            }).addTo(map);
+            map.setView([50.1369745, 8.696875300000002], 12);
+        }
+
+        function addMarkerListeners(marker) {
+            marker.on("click", clickListener);
+            marker.on("mouseover", mouseOverListener);
+            marker.on("mouseout", mouseOutListener);
+            SidebarService.getSidebar().on("hide", MarkerService.handleSidebarHide)
+        }
+
+        function clickListener() {
+            MarkerService.handleClick(this)
+            if (MarkerService.isActive()) {
+                SidebarService.show(MarkerService.getMarkerContent(this));
+            } else {
+                SidebarService.getSidebar().hide();
+            }
+        }
+
+        function mouseOverListener() {
+            MarkerService.handleMouseOver(this);
+            SidebarService.show(MarkerService.getMarkerContent(this));
+        }
+
+        function mouseOutListener() {
+            MarkerService.handleMouseOut(this);
+            if (MarkerService.isActive()) {
+                SidebarService.show(MarkerService.getMarkerContent());
+            } else {
+                SidebarService.getSidebar().hide();
+            }
+        }
+
+        return {
+            getMap: function () {
+                if (!map) {
+                    init();
+                }
+                return map;
+            },
+            addSidebar: function (sidebar) {
+                this.getMap().addControl(sidebar);
+            },
+            addMarker: function (marker) {
+                marker.addTo(this.getMap());
+                //init marker listeners
+                addMarkerListeners(marker);
+            },
+            setMarkers: function (markers) {
+                var that = this;
+                markers.forEach(function (marker) {
+                    that.addMarker(marker);
+                });
+            }
+        }
+
+    }();
+    var SidebarService = function () {
+        var sidebar;
+
+        function init() {
+            sidebar = L.control.sidebar('sidebar', {
+                closeButton: true,
+                position: 'right',
+                autoPan: false
+            });
+        }
+
+        return {
+            getSidebar: function () {
+                if (!sidebar) {
+                    init()
+                }
+                return sidebar;
+            },
+            show: function (content) {
+                this.getSidebar().setContent(content.join('<br>\n'));
+                this.getSidebar().show();
+
+            }
+        }
+    }();
+
+    var MarkerService = function () {
+        var markers,
+            activeMarker,
+            greenIcon, blueIcon;
+
+        function getMarkers(callback) {
+            $.ajax({
+                url: '/data.json',
+                type: 'get',
+                dataType: 'json',
+                success: callback
+            });
+        }
+
+        function init(callback) {
+            markers = [];
+
+            greenIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            blueIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            getMarkers(function (markersData) {
+                markersData.vehicle.forEach(function (dataElement) {
+
+                    var marker = L.marker([dataElement.latitude, dataElement.longitude]);
+                    var array = $.map(dataElement, function (value, index) {
+                        return [value];
+                    });
+
+                    marker.options.content = array;
+                    // marker.options.description = dataElement.description;
+                    markers.push(marker)
+                });
+                callback();
+
+            })
+        }
+
+
+        function setActiveMarker(marker) {
+            if (marker) {
+                activeMarker = marker;
+                highlightMarker(activeMarker)
+            } else if (activeMarker) {
+                unhighlightMarker(activeMarker)
+                activeMarker = null;
+            }
+        }
+
+        function highlightMarker(marker) {
+            marker.setIcon(greenIcon);
+        }
+
+        function unhighlightMarker(marker) {
+            marker.setIcon(blueIcon);
+        }
+
+
+        return {
+            getMarkers: function (callback) {
+                if (!markers) {
+                    init(function () {
+                        callback(markers);
+                    });
+                } else {
+                    callback(markers);
+                }
+            },
+
+            getMarkerContent: function (marker) {
+                if (marker) {
+                    return marker.options.content;
+                } else if (activeMarker) {
+                    return activeMarker.options.content;
+                }
+            },
+
+            isActive: function () {
+                return !!activeMarker;
+            },
+
+            handleClick: function (marker) {
+                if (!activeMarker) {
+                    setActiveMarker(marker);
+                    return true;
+                }
+
+                if (marker != activeMarker) {
+                    unhighlightMarker(activeMarker);
+                    setActiveMarker(marker);
+                    return true;
+                }
+                setActiveMarker(false);
+                return false;
+            },
+            handleMouseOver: function (marker) {
+                highlightMarker(marker)
+            },
+            handleMouseOut: function (marker) {
+                if (marker != activeMarker) {
+                    unhighlightMarker(marker)
+                }
+            },
+            handleSidebarHide: function () {
+                setActiveMarker(false);
+            }
+        }
+
+
+    }();
+
+    mapService.addSidebar(SidebarService.getSidebar());
+
+    MarkerService.getMarkers(function (markers) {
+        mapService.setMarkers(markers)
+    });
+
+</script>
+</body>
+
+</html>

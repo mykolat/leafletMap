@@ -1,0 +1,205 @@
+;
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>leaflet-sidebar example</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <link rel="stylesheet" href="../src/L.Control.Sidebar.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.ie.css" /><![endif]-->
+
+    <style>
+        body {
+            padding: 30px;
+            font-family: sans-serif;
+        }
+
+        #map {
+            width: 100%;
+            height: 600px;
+            border-radius: 10px;
+        }
+
+        #sidebar {
+            padding: 24px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sidebar"></div>
+    <div id="map"></div>
+
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script src="../src/L.Control.Sidebar.js"></script>
+
+    <script>
+        var map = L.map('map');
+
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var sidebar = L.control.sidebar('sidebar', {
+            closeButton: true,
+            position: 'right',
+            autoPan: false
+        });
+        map.addControl(sidebar);
+
+        var mapService = function() {
+
+            return {
+
+            }
+        }
+
+        var markerService = function() {
+            var markersData = [{
+                position: [40, -80],
+                title: "Station 0",
+                description: "shevchenka str"
+            }, {
+                position: [45, -80],
+                title: "Station 0"
+            }, {
+                position: [0, 0],
+                title: "Station A"
+            }, {
+                position: [20, 20],
+                title: "Station B"
+            }],
+            markers = [];
+
+
+            return {
+                getMarkers: function() {
+                    return markers;
+                }
+                init: function () {
+                  markersData.forEach(function(dataElement) {
+                      var marker = L.marker(dataElement.position).addTo(map);
+                      marker.options.title = dataElement.title;
+                      marker.options.description = dataElement.description;
+
+                      markers.push(marker)
+                  })
+                }
+            }
+        }();
+        markerService.init()
+
+        // var activeMarker = {
+        //     marker: null,
+        //
+        //     isActive: function() {
+        //         //if (this.marker != null)
+        //             return this.marker.options.active;
+        //     },
+        //     setActiveMarker: function(active) {
+        //         this.marker.options.active = active;
+        //         if (active) {
+        //             this.marker.setIcon(this.greenIcon);
+        //             showSidebar();
+        //         } else {
+        //             this.marker.setIcon(this.blueIcon);
+        //             hideSidebar();
+        //         }
+        //     },
+        //     setMarker: function(marker) {
+        //         this.marker = marker;
+        //         this.setActiveMarker(true)
+        //     },
+        //
+        //     selectMarker: function(marker) {
+        //         this.unSelectMarker(marker);
+        //         this.setMarker(marker)
+        //     },
+        //
+        //     unSelectMarker: function(marker) {
+        //         if (this.marker != null)
+        //             this.setActiveMarker(false);
+        //     },
+        //     greenIcon: new L.Icon({
+        //         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        //         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        //         iconSize: [25, 41],
+        //         iconAnchor: [12, 41],
+        //         popupAnchor: [1, -34],
+        //         shadowSize: [41, 41]
+        //     }),
+        //     blueIcon: new L.Icon({
+        //         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+        //         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        //         iconSize: [25, 41],
+        //         iconAnchor: [12, 41],
+        //         popupAnchor: [1, -34],
+        //         shadowSize: [41, 41]
+        //     }),
+        //
+        // };
+
+
+
+
+
+
+
+
+      
+
+
+
+
+        // map.on('move', function() {
+        //     // construct an empty list to fill with onscreen markers
+        //     // var inBounds = [],
+        //     // // get the map bounds - the top-left and bottom-right locations
+        //     //     bounds = map.getBounds();
+        //     //
+        //     // // for each marker, consider whether it is currently visible by comparing
+        //     // // with the current map bounds
+        //     // for (var i = 0, len = markers.length; i < len; i++) {
+        //     //     var marker = markers[i];
+        //     //     if (bounds.contains(marker.getLatLng())) {
+        //     //         inBounds.push(marker.options.description);
+        //     //     }
+        //     // }
+        //     //
+        //     // // display a list of markers.
+        //     //
+        //     // sidebar.setContent(inBounds.join('<br>\n'));
+        // });
+
+
+        // map.on('dragend', function() {
+        //     //if(sidebarflag){
+        //     //  sidebarflag = false;
+        //     setTimeout(function() {
+        //         hideSidebar()
+        //     }, 300)
+        //     //}
+        // });
+        // map.setView([37, -77], 5);
+
+        // function hideSidebar() {
+        //     if (!activeMarker.isActive()) {
+        //         sidebar.hide();
+        //     }
+        // }
+        //
+        // function showSidebar() {
+        //     //if(!activeMarker.isActive){
+        //     sidebar.show();
+        //     //  }
+        // }
+    </script>
+</body>
+
+</html>
