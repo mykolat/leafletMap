@@ -34,6 +34,6 @@ li:hover {
 }
 
 
-.leaflet-controll {
-    overflow: hidden;
+.leaflet-control {
+    overflow: hidden!important;
 }
