@@ -10,18 +10,17 @@ ul {
 }
 
 h3 {
-    font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+    font: bold 18px/1.5 Helvetica, Verdana, sans-serif;
 }
 
 li img {
     float: left;
-    margin: 0 15px 0 0;
-
-    height: 100px;
+    margin: 0 10px 0 0;
+    height: 85px;
 }
 
 li p {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 li {
@@ -35,6 +34,6 @@ li:hover {
 }
 
 
-.leaflet-control {
+.leaflet-controll {
     overflow: hidden;
 }
