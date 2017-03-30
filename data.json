@@ -1,4 +1,9 @@
 {
+  "status": "OK",
+  "message": "Fahrzeugsuche erfolgreich",
+  "uimessage": "",
+  "SID": "34332C1BDA36AF2B4E613F0447A1328C1235C12580580FF30033003B2FB31E22B",
+  "SERVER": "HEXAEDER",
   "vehicle": [
     {
       "color": "",
@@ -81,20 +86,20 @@
     {
       "color": "",
       "currentRegion": "DE Flugplatz",
-      "currentTASCode": "TA1606032602DE",
-      "distance": "4,61",
+      "currentTASCode": "TA1606031401DE",
+      "distance": "3,97",
       "enginepower": "0",
       "fuelType": "",
       "group": "",
-      "latitude": "50.099766931749656",
-      "longitude": "8.619892419643406",
+      "latitude": "50.1208",
+      "longitude": "8.735665",
       "licensePlateNumber": "",
       "manufacturer": "null ",
       "mileage": "0",
       "model": "",
       "mva": "",
       "transmissionType": "",
-      "vehicleClass": "SUBCOMPACT",
+      "vehicleClass": "COMPACT",
       "vehicleState": "AVAILABLE",
       "vin": "",
       "location": {
@@ -103,17 +108,17 @@
         "distance": "0,00",
         "email": "",
         "icao": "",
-        "latitude": "50.099766931749656",
-        "locationCode": "TA1606032602DE",
-        "locationName": "Mainzer Landstraße 517",
-        "locationOwner": "Multra-Multiplex Transfer GmbH",
+        "latitude": "50.1208",
+        "locationCode": "TA1606031401DE",
+        "locationName": "Hanauer Landstrasse 419",
+        "locationOwner": "app2drive Deutschland GmbH",
         "locationRegion": "DE Flugplatz",
-        "locationType": "IDPTAS",
-        "longitude": "8.619892419643406",
-        "street": "Mainzer Landstraße 517",
-        "telephone": "+49 (0)69 34877311",
-        "zipCode": "60326",
-        "fullvanCapable": "NO",
+        "locationType": "TAS",
+        "longitude": "8.735665",
+        "street": "Hanauer Landstrasse 419",
+        "telephone": "+49 (0)6021 3325280",
+        "zipCode": "60314",
+        "fullvanCapable": "YES",
         "localVehicles": "NO"
       }
     },
@@ -134,6 +139,45 @@
       "mva": "",
       "transmissionType": "",
       "vehicleClass": "SUBCOMPACT",
+      "vehicleState": "AVAILABLE",
+      "vin": "",
+      "location": {
+        "city": "Neu-Isenburg",
+        "countryCode": "DE",
+        "distance": "0,00",
+        "email": "",
+        "icao": "",
+        "latitude": "50.05504",
+        "locationCode": "TA1606326304DE",
+        "locationName": "Rathausparkplatz",
+        "locationOwner": "Magistrat Stadt Neu-Isenburg",
+        "locationRegion": "DE Flugplatz",
+        "locationType": "TAS",
+        "longitude": "8.68788",
+        "street": "Hugenottenallee 53",
+        "telephone": "+49 (0)6102 2410",
+        "zipCode": "63263",
+        "fullvanCapable": "NO",
+        "localVehicles": "NO"
+      }
+    },
+    {
+      "color": "",
+      "currentRegion": "DE Flugplatz",
+      "currentTASCode": "TA1606326304DE",
+      "distance": "6,23",
+      "enginepower": "0",
+      "fuelType": "",
+      "group": "",
+      "latitude": "50.05504",
+      "longitude": "8.68788",
+      "licensePlateNumber": "",
+      "manufacturer": "null ",
+      "mileage": "0",
+      "model": "",
+      "mva": "",
+      "transmissionType": "",
+      "vehicleClass": "COMPACT",
       "vehicleState": "AVAILABLE",
       "vin": "",
       "location": {
@@ -189,45 +233,6 @@
         "locationType": "TAS",
         "longitude": "8.69694",
         "street": "Richard-Wagner-Strasse 13",
-        "telephone": "+49 (0)6102 2410",
-        "zipCode": "63263",
-        "fullvanCapable": "NO",
-        "localVehicles": "NO"
-      }
-    },
-    {
-      "color": "",
-      "currentRegion": "DE Flugplatz",
-      "currentTASCode": "TA1606326303DE",
-      "distance": "6,54",
-      "enginepower": "0",
-      "fuelType": "",
-      "group": "",
-      "latitude": "50.05234",
-      "longitude": "8.67517",
-      "licensePlateNumber": "",
-      "manufacturer": "null ",
-      "mileage": "0",
-      "model": "",
-      "mva": "",
-      "transmissionType": "",
-      "vehicleClass": "COMPACT",
-      "vehicleState": "AVAILABLE",
-      "vin": "",
-      "location": {
-        "city": "Neu-Isenburg",
-        "countryCode": "DE",
-        "distance": "0,00",
-        "email": "",
-        "icao": "",
-        "latitude": "50.05234",
-        "locationCode": "TA1606326303DE",
-        "locationName": "Kurt-Tucholsky-Straße (an der Wilhelm-Hauff-Schule)",
-        "locationOwner": "Magistrat Stadt Neu-Isenburg",
-        "locationRegion": "DE Flugplatz",
-        "locationType": "TAS",
-        "longitude": "8.67517",
-        "street": "Kurt-Tucholsky-Straße 23",
         "telephone": "+49 (0)6102 2410",
         "zipCode": "63263",
         "fullvanCapable": "NO",
@@ -1329,6 +1334,45 @@
     {
       "color": "",
       "currentRegion": "DE Flugplatz",
+      "currentTASCode": "TA1606386801DE",
+      "distance": "41,81",
+      "enginepower": "0",
+      "fuelType": "",
+      "group": "",
+      "latitude": "49.8807514",
+      "longitude": "9.1436082",
+      "licensePlateNumber": "",
+      "manufacturer": "null ",
+      "mileage": "0",
+      "model": "",
+      "mva": "",
+      "transmissionType": "",
+      "vehicleClass": "COMPACT",
+      "vehicleState": "AVAILABLE",
+      "vin": "",
+      "location": {
+        "city": "Großwallstadt",
+        "countryCode": "DE",
+        "distance": "0,00",
+        "email": "",
+        "icao": "",
+        "latitude": "49.8807514",
+        "locationCode": "TA1606386801DE",
+        "locationName": "ZENTEC Zentrum für Technologie, Existenzgründung und Cooperation GmbH",
+        "locationOwner": "Heger Energietechnik GmbH",
+        "locationRegion": "DE Flugplatz",
+        "locationType": "TAS",
+        "longitude": "9.1436082",
+        "street": "Industriering 7",
+        "telephone": "+49 (0)6026 97670",
+        "zipCode": "63868",
+        "fullvanCapable": "NO",
+        "localVehicles": "NO"
+      }
+    },
+    {
+      "color": "",
+      "currentRegion": "DE Flugplatz",
       "currentTASCode": "SH1603542801DE",
       "distance": "42,94",
       "enginepower": "0",
@@ -1447,271 +1491,278 @@
   "shadowReservations": [
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086384830890500SUBCOMPACT",
+      "identifier": "14167384021071900SUBCOMPACT",
       "locationCode": "TA1606480702DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086384886566940SUBCOMPACT",
+      "identifier": "14167384077245140SUBCOMPACT",
       "locationCode": "TA1606376202DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086384914251080SUBCOMPACT",
+      "identifier": "14167384105371200SUBCOMPACT",
       "locationCode": "TA1506374301DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086384970351570SUBCOMPACT",
+      "identifier": "14167384161770840SUBCOMPACT",
       "locationCode": "TA1606326304DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086384998660920SUBCOMPACT",
+      "identifier": "14167384189904090SUBCOMPACT",
       "locationCode": "SH1506326301DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385026590810SUBCOMPACT",
+      "identifier": "14167384217976060SUBCOMPACT",
       "locationCode": "TA1606581701DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385054462640SUBCOMPACT",
+      "identifier": "14167384246287890SUBCOMPACT",
       "locationCode": "TA1606376201DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385082529090SUBCOMPACT",
+      "identifier": "14167384274413710SUBCOMPACT",
       "locationCode": "TA1506307501DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385138417430SUBCOMPACT",
+      "identifier": "14167384330918050SUBCOMPACT",
       "locationCode": "SH1606317901DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385250031500SUBCOMPACT",
+      "identifier": "14167384443401400SUBCOMPACT",
       "locationCode": "TA1706332901DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385277771180SUBCOMPACT",
+      "identifier": "14167384471481960SUBCOMPACT",
       "locationCode": "TA1606326308DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385333551510SUBCOMPACT",
+      "identifier": "14167384527591520SUBCOMPACT",
       "locationCode": "SH1603542801DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385361502570SUBCOMPACT",
+      "identifier": "14167384555629130SUBCOMPACT",
       "locationCode": "SH1706375502DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385389445810SUBCOMPACT",
+      "identifier": "14167384584788510SUBCOMPACT",
       "locationCode": "TA1606462501DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385417437940SUBCOMPACT",
+      "identifier": "14167384612851970SUBCOMPACT",
       "locationCode": "TA1506317901DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385445401640SUBCOMPACT",
+      "identifier": "14167384640992940SUBCOMPACT",
       "locationCode": "TA1606326306DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385473395940SUBCOMPACT",
+      "identifier": "14167384669325320SUBCOMPACT",
       "locationCode": "SH1606375501DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385529209790SUBCOMPACT",
+      "identifier": "14167384725814080SUBCOMPACT",
       "locationCode": "TA1606031401DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385556923320SUBCOMPACT",
+      "identifier": "14167384753813810SUBCOMPACT",
       "locationCode": "TA1606429302DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385584872160SUBCOMPACT",
+      "identifier": "14167384782199590SUBCOMPACT",
       "locationCode": "SH1606038901DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385612639840SUBCOMPACT",
+      "identifier": "14167384810385900SUBCOMPACT",
       "locationCode": "TA1606347701DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385640762240SUBCOMPACT",
+      "identifier": "14167384838153810SUBCOMPACT",
       "locationCode": "TA1606326302DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385668666430SUBCOMPACT",
+      "identifier": "14167384867118530SUBCOMPACT",
       "locationCode": "SH1406345701DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385724337800SUBCOMPACT",
-      "locationCode": "TA1606032602DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
-    },
-    {
-      "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385752049800SUBCOMPACT",
+      "identifier": "14167384951723670SUBCOMPACT",
       "locationCode": "TA1606326307DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "SUBCOMPACT",
-      "identifier": "14086385780044380SUBCOMPACT",
+      "identifier": "14167385019788840SUBCOMPACT",
       "locationCode": "TA1606429301DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "COMPACT",
-      "identifier": "14086385918537940COMPACT",
-      "locationCode": "TA1606326303DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "identifier": "14167385277702160COMPACT",
+      "locationCode": "TA1606326304DE",
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "COMPACT",
-      "identifier": "14086386593474650COMPACT",
+      "identifier": "14167385500232540COMPACT",
+      "locationCode": "TA1606386801DE",
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
+    },
+    {
+      "dispositionCategory": "COMPACT",
+      "identifier": "14167385807621320COMPACT",
       "locationCode": "SH1603541501DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
+    },
+    {
+      "dispositionCategory": "COMPACT",
+      "identifier": "14167385835374070COMPACT",
+      "locationCode": "TA1606031401DE",
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "COMPACTE",
-      "identifier": "14086387036380410COMPACTE",
+      "identifier": "14167386252320270COMPACTE",
       "locationCode": "TA1606376202DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "COMPACTE",
-      "identifier": "14086387090855670COMPACTE",
+      "identifier": "14167386307546440COMPACTE",
       "locationCode": "TA1606116901DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "FULLVAN",
-      "identifier": "14086391225815040FULLVAN",
+      "identifier": "14167390464858130FULLVAN",
       "locationCode": "SH1606347701DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "FULLVAN",
-      "identifier": "14086391334825640FULLVAN",
+      "identifier": "14167390583985190FULLVAN",
       "locationCode": "TA1506374301DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "FULLVAN",
-      "identifier": "14086391362161080FULLVAN",
+      "identifier": "14167390612183900FULLVAN",
       "locationCode": "TA1606116901DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "FULLVAN",
-      "identifier": "14086391554192250FULLVAN",
+      "identifier": "14167390805751850FULLVAN",
       "locationCode": "SH1606317901DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "FULLVAN",
-      "identifier": "14086391719047570FULLVAN",
+      "identifier": "14167390971277110FULLVAN",
       "locationCode": "SH1606386801DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "FULLVAN",
-      "identifier": "14086391968723080FULLVAN",
+      "identifier": "14167391223790680FULLVAN",
       "locationCode": "TA1606429302DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     },
     {
       "dispositionCategory": "FULLVAN",
-      "identifier": "14086392189767790FULLVAN",
+      "identifier": "14167391445530150FULLVAN",
       "locationCode": "TA1606429301DE",
-      "from": "30.03.2017 16:30",
-      "to": "30.03.2017 19:30"
+      "from": "06.04.2017 14:45",
+      "to": "07.04.2017 17:30"
     }
   ],
   "prices": [
     {
       "tariffID": "CUSTOMER:DEFAULT:Basic",
       "tariffName": "Basic",
-      "totalGross": "10,80",
-      "totalNet": "9,08",
-      "totalVat": "1,72",
+      "totalGross": "46,80",
+      "totalNet": "39,33",
+      "totalVat": "7,47",
       "vatFactor": "1,19",
       "vatPercent": "19,00",
       "priceType": "GROSS",
@@ -1724,6 +1775,25 @@
       "mileageInterval": "1",
       "mileageIntervalPrice": "0,18",
       "tariffItems": [
+        {
+          "itemPriceNet": "30,25",
+          "itemIntervall": "1",
+          "itemIntervallCount": "1",
+          "itemCount": "1",
+          "itemName": "Daily rate",
+          "itemPrice": "36,00",
+          "itemPriceGross": "36,00",
+          "itemPriceNet": "30,25",
+          "itemSum": "36,00",
+          "itemSumGross": "36,00",
+          "itemSumNet": "30,25",
+          "vatAmount": "5,75",
+          "vatAmountSum": "5,75",
+          "vatFactor": "1,19",
+          "vatPercent": "19,00",
+          "itemType": "DAILYRATE",
+          "unitType": "DAY"
+        },
         {
           "itemPriceNet": "3,03",
           "itemIntervall": "1",
@@ -1786,9 +1856,9 @@
     {
       "tariffID": "CUSTOMER:DEFAULT:Basic",
       "tariffName": "Basic",
-      "totalGross": "15,90",
-      "totalNet": "13,36",
-      "totalVat": "2,54",
+      "totalGross": "68,70",
+      "totalNet": "57,73",
+      "totalVat": "10,97",
       "vatFactor": "1,19",
       "vatPercent": "19,00",
       "priceType": "GROSS",
@@ -1801,6 +1871,25 @@
       "mileageInterval": "1",
       "mileageIntervalPrice": "0,20",
       "tariffItems": [
+        {
+          "itemPriceNet": "44,37",
+          "itemIntervall": "1",
+          "itemIntervallCount": "1",
+          "itemCount": "1",
+          "itemName": "Daily rate",
+          "itemPrice": "52,80",
+          "itemPriceGross": "52,80",
+          "itemPriceNet": "44,37",
+          "itemSum": "52,80",
+          "itemSumGross": "52,80",
+          "itemSumNet": "44,37",
+          "vatAmount": "8,43",
+          "vatAmountSum": "8,43",
+          "vatFactor": "1,19",
+          "vatPercent": "19,00",
+          "itemType": "DAILYRATE",
+          "unitType": "DAY"
+        },
         {
           "itemPriceNet": "4,45",
           "itemIntervall": "1",
@@ -1863,9 +1952,9 @@
     {
       "tariffID": "CUSTOMER:DEFAULT:Basic",
       "tariffName": "Basic",
-      "totalGross": "27,60",
-      "totalNet": "23,19",
-      "totalVat": "4,41",
+      "totalGross": "120,00",
+      "totalNet": "100,84",
+      "totalVat": "19,16",
       "vatFactor": "1,19",
       "vatPercent": "19,00",
       "priceType": "GROSS",
@@ -1878,6 +1967,25 @@
       "mileageInterval": "1",
       "mileageIntervalPrice": "0,31",
       "tariffItems": [
+        {
+          "itemPriceNet": "77,65",
+          "itemIntervall": "1",
+          "itemIntervallCount": "1",
+          "itemCount": "1",
+          "itemName": "Daily rate",
+          "itemPrice": "92,40",
+          "itemPriceGross": "92,40",
+          "itemPriceNet": "77,65",
+          "itemSum": "92,40",
+          "itemSumGross": "92,40",
+          "itemSumNet": "77,65",
+          "vatAmount": "14,75",
+          "vatAmountSum": "14,75",
+          "vatFactor": "1,19",
+          "vatPercent": "19,00",
+          "itemType": "DAILYRATE",
+          "unitType": "DAY"
+        },
         {
           "itemPriceNet": "7,73",
           "itemIntervall": "1",
@@ -1940,9 +2048,9 @@
     {
       "tariffID": "CUSTOMER:DEFAULT:Basic",
       "tariffName": "Basic",
-      "totalGross": "15,90",
-      "totalNet": "13,36",
-      "totalVat": "2,54",
+      "totalGross": "68,70",
+      "totalNet": "57,73",
+      "totalVat": "10,97",
       "vatFactor": "1,19",
       "vatPercent": "19,00",
       "priceType": "GROSS",
@@ -1955,6 +2063,25 @@
       "mileageInterval": "1",
       "mileageIntervalPrice": "0,20",
       "tariffItems": [
+        {
+          "itemPriceNet": "44,37",
+          "itemIntervall": "1",
+          "itemIntervallCount": "1",
+          "itemCount": "1",
+          "itemName": "Daily rate",
+          "itemPrice": "52,80",
+          "itemPriceGross": "52,80",
+          "itemPriceNet": "44,37",
+          "itemSum": "52,80",
+          "itemSumGross": "52,80",
+          "itemSumNet": "44,37",
+          "vatAmount": "8,43",
+          "vatAmountSum": "8,43",
+          "vatFactor": "1,19",
+          "vatPercent": "19,00",
+          "itemType": "DAILYRATE",
+          "unitType": "DAY"
+        },
         {
           "itemPriceNet": "4,45",
           "itemIntervall": "1",

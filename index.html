@@ -8,17 +8,18 @@
 
     <link rel="stylesheet" href="./bower_components/leaflet/dist/leaflet.css"/>
     <link rel="stylesheet" href="./src/L.Control.Sidebar.css"/>
+    <link rel="stylesheet" href="./src/list.css"/>
 
     <style>
         body {
-            padding: 30px;
+            /*padding: 30px;*/
             font-family: sans-serif;
         }
 
         #map {
             width: 100%;
             height: 600px;
-            border-radius: 10px;
+            /*border-radius: 10px;*/
         }
 
         #sidebar {
@@ -41,7 +42,7 @@
 
 <script>
     var mapService = function () {
-        var map, markerActive = false;
+        var map;
 
         function init() {
             map = L.map('map');
@@ -60,24 +61,24 @@
             SidebarService.getSidebar().on("hide", MarkerService.handleSidebarHide)
         }
 
-        function clickListener() {
+        function clickListener(e) {
             MarkerService.handleClick(this)
             if (MarkerService.isActive()) {
-                SidebarService.show(MarkerService.getMarkerContent(this));
+                SidebarService.show(this, map._container.offsetWidth, e.originalEvent.layerX);
             } else {
                 SidebarService.getSidebar().hide();
             }
         }
 
-        function mouseOverListener() {
+        function mouseOverListener(e) {
             MarkerService.handleMouseOver(this);
-            SidebarService.show(MarkerService.getMarkerContent(this));
+            SidebarService.show(this, map._container.offsetWidth, e.originalEvent.layerX);
         }
 
         function mouseOutListener() {
             MarkerService.handleMouseOut(this);
             if (MarkerService.isActive()) {
-                SidebarService.show(MarkerService.getMarkerContent());
+                SidebarService.show();
             } else {
                 SidebarService.getSidebar().hide();
             }
@@ -107,6 +108,41 @@
         }
 
     }();
+
+    var VehicleService = function () {
+        var vehicle = [{
+            "model": "S - Fiat 500 Cabrio",
+            "vehicleClass": "SUBCOMPACT",
+            "vehicleState": "AVAILABLE",
+            "description": "Comfort trip<br>Max speed <b>190km/h</b><br>Price <b>2USD/h</b>",
+            "image": "content_fiat_500.jpg"
+        }, {
+            "model": "L - Peugeot 2008",
+            "vehicleClass": "LUX",
+            "vehicleState": "AVAILABLE",
+            "description": "Fast turbo engine<br>Max speed <b>290km/h</b><br>Price <b>4USD/h</b>",
+            "image": "content_peugot_2008.jpg"
+        }, {
+            "model": "XL - Peugeot 308",
+            "vehicleClass": "LARGE",
+            "vehicleState": "AVAILABLE",
+            "description": "Super fast turbo engine<br>Capacity <b>9 person</b><br>Price <b>7USD/h</b>",
+            "image": "content_peugot_308_sw.jpg"
+        }, {
+            "model": "XXL - Citroën Jumpy",
+            "vehicleClass": "FULLVAN",
+            "vehicleState": "AVAILABLE",
+            "description": "For big family<br>Engine <b>136 bhp</b><br>Price <b>9.99USD/h</b>",
+            "image": "content_citroen_jumpy.jpg"
+        }];
+
+        return {
+            getVehicles: function (value) {
+                return vehicle.slice(value)
+            }
+        }
+    }();
+
     var SidebarService = function () {
         var sidebar;
 
@@ -118,6 +154,13 @@
             });
         }
 
+        function defineSidebarPosition(mapWidth, position) {
+            if (mapWidth && mapWidth / 2 > position) {
+                return "right"
+            }
+            return "left"
+        }
+
         return {
             getSidebar: function () {
                 if (!sidebar) {
@@ -125,10 +168,30 @@
                 }
                 return sidebar;
             },
-            show: function (content) {
-                this.getSidebar().setContent(content.join('<br>\n'));
-                this.getSidebar().show();
+            show: function (marker, mapWidth, position) {
+                var content = MarkerService.getMarkerContent(marker);
+                var text = "<ul>";
+                content.forEach(function (element) {
+//                    var array = $.map(element, function (value, index) {
+//                        return [value];
+//                    });
+                    text += "<li>";
+                    text += "<img src='./images/" + element.image + "'>";
+                    text += "<h3>";
+                    text += element.model;
+                    text += "</h3>";
+                    text += "<p>";
+                    text += element.description;
+                    text += "</p>";
 
+                    text += "</li>"
+
+                });
+                text += "</ul>";
+
+                this.getSidebar().setContent(text);
+
+                this.getSidebar().show(defineSidebarPosition(mapWidth, position));
             }
         }
     }();
@@ -167,14 +230,14 @@
                 shadowSize: [41, 41]
             });
             getMarkers(function (markersData) {
-                markersData.vehicle.forEach(function (dataElement) {
+                markersData.vehicle.forEach(function (dataElement, i) {
 
                     var marker = L.marker([dataElement.latitude, dataElement.longitude]);
-                    var array = $.map(dataElement, function (value, index) {
-                        return [value];
-                    });
-
-                    marker.options.content = array;
+//                    var array = $.map(dataElement, function (value, index) {
+//                        return [value];
+//                    });
+                    marker.options.content = VehicleService.getVehicles(i % 3)
+//                        .marker.options.content = array;
                     // marker.options.description = dataElement.description;
                     markers.push(marker)
                 });

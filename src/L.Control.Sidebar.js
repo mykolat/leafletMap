@@ -20,6 +20,7 @@ L.Control.Sidebar = L.Control.extend({
         var l = 'leaflet-';
 
         // Create sidebar container
+        console.log(placeholder)
         var container = this._container =
             L.DomUtil.create('div', l + 'sidebar ' + this.options.position);
 
@@ -118,9 +119,22 @@ L.Control.Sidebar = L.Control.extend({
         return L.DomUtil.hasClass(this._container, 'visible');
     },
 
-    show: function () {
+    selectPosition: function (position) {
+        if (!$(this._container).hasClass(position)) {
+            $(this._container).toggleClass("right left")
+        }
+
+    },
+
+    show: function (position) {
         if (!this.isVisible()) {
-            L.DomUtil.addClass(this._container, 'visible');
+            var container = $(this._container)
+            this.selectPosition(position);
+
+            setTimeout(function () {
+                container.toggleClass("visible");
+            }, 10)
+
             if (this.options.autoPan) {
                 this._map.panBy([-this.getOffset() / 2, 0], {
                     duration: 0.5
@@ -140,7 +154,7 @@ L.Control.Sidebar = L.Control.extend({
             }
             this.fire('hide');
         }
-        if(e) {
+        if (e) {
             L.DomEvent.stopPropagation(e);
         }
     },
