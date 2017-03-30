@@ -39,6 +39,8 @@
         crossorigin="anonymous"></script>
 <script src="./bower_components/leaflet/dist/leaflet.js"></script>
 <script src="./src/L.Control.Sidebar.js"></script>
+<script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js'></script>
+<link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet' />
 
 <script>
     var mapService = function () {
@@ -46,8 +48,8 @@
 
         function init() {
             map = L.map('map');
-
-            L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+//            256/1/1/0
+            L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXlrb2xhdCIsImEiOiJjajB3ajEyNjQwMDB2MzNwOTN6NGszb2ZyIn0.1bVvnPjlL_cxJwXxwxWHpA', {
                 maxZoom: 18,
                 attribution: 'Map data &copy; OpenStreetMap contributors'
             }).addTo(map);
@@ -169,9 +171,12 @@
                 return sidebar;
             },
             show: function (marker, mapWidth, position) {
-                var content = MarkerService.getMarkerContent(marker);
-                var text = "<ul>";
-                content.forEach(function (element) {
+                var data = MarkerService.getMarkerContent(marker);
+                var text = "";//data.content.distance + "km";
+
+
+                text += "<ul>";
+                data.vehicles.forEach(function (element) {
 //                    var array = $.map(element, function (value, index) {
 //                        return [value];
 //                    });
@@ -236,7 +241,9 @@
 //                    var array = $.map(dataElement, function (value, index) {
 //                        return [value];
 //                    });
-                    marker.options.content = VehicleService.getVehicles(i % 3)
+
+                    marker.options.data = {content: dataElement};
+                    marker.options.data.vehicles = VehicleService.getVehicles(i % 3)
 //                        .marker.options.content = array;
                     // marker.options.description = dataElement.description;
                     markers.push(marker)
@@ -279,9 +286,9 @@
 
             getMarkerContent: function (marker) {
                 if (marker) {
-                    return marker.options.content;
+                    return marker.options.data;
                 } else if (activeMarker) {
-                    return activeMarker.options.content;
+                    return activeMarker.options.data;
                 }
             },
 
