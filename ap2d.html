@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>leaflet-sidebar example</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="./bower_components/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="./src/L.Control.Sidebar.css"/>
+    <link rel="stylesheet" href="./src/list.css"/>
+
+    <style>
+        body {
+            /*padding: 30px;*/
+            font-family: sans-serif;
+        }
+
+        #map {
+            width: 100%;
+            height: 600px;
+            /*border-radius: 10px;*/
+        }
+
+        #sidebar {
+            padding: 40px 0;
+            font-family: monospace;
+        }
+    </style>
+    <link rel="stylesheet" href="./src/txis/base.css">
+    <link rel="stylesheet" href="./src/txis/reservation-corporate.css">
+    <link rel="stylesheet" href="./src/txis/rte.css">
+    <link rel="stylesheet" href="./src/txis/typo3-corporate-additions.css">
+    <link rel="stylesheet" href="./src/txis/typo3-default-styles.css">
+    <link rel="stylesheet" href="./src/txis/ui.core.css">
+    <link rel="stylesheet" href="./src/txis/ui.datepicker.css">
+    <link rel="stylesheet" href="./src/txis/ui.theme.css">
+
+
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <style type="text/css">.gm-style .gm-style-cc span, .gm-style .gm-style-cc a, .gm-style .gm-style-mtc div {
+        font-size: 10px
+    }</style>
+    <style type="text/css">@media print {
+        .gm-style .gmnoprint, .gmnoprint {
+            display: none
+        }
+    }
+
+    @media screen {
+        .gm-style .gmnoscreen, .gmnoscreen {
+            display: none
+        }
+    }</style>
+    <style type="text/css">.gm-style {
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        text-decoration: none
+    }
+
+    .gm-style img {
+        max-width: none
+    }</style>
+    <style type="text/css">.pac-container {
+        background-color: #fff;
+        position: absolute !important;
+        z-index: 1000;
+        border-radius: 2px;
+        border-top: 1px solid #d9d9d9;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        overflow: hidden
+    }
+
+    .pac-logo:after {
+        content: "";
+        padding: 1px 1px 1px 0;
+        height: 16px;
+        text-align: right;
+        display: block;
+        background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white3.png);
+        background-position: right;
+        background-repeat: no-repeat;
+        background-size: 120px 14px
+    }
+
+    .hdpi.pac-logo:after {
+        background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white3_hdpi.png)
+    }
+
+    .pac-item {
+        cursor: default;
+        padding: 0 4px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        line-height: 30px;
+        text-align: left;
+        border-top: 1px solid #e6e6e6;
+        font-size: 11px;
+        color: #999
+    }
+
+    .pac-item:hover {
+        background-color: #fafafa
+    }
+
+    .pac-item-selected, .pac-item-selected:hover {
+        background-color: #ebf2fe
+    }
+
+    .pac-matched {
+        font-weight: 700
+    }
+
+    .pac-item-query {
+        font-size: 13px;
+        padding-right: 3px;
+        color: #000
+    }
+
+    .pac-icon {
+        width: 15px;
+        height: 20px;
+        margin-right: 7px;
+        margin-top: 6px;
+        display: inline-block;
+        vertical-align: top;
+        background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons.png);
+        background-size: 34px
+    }
+
+    .hdpi .pac-icon {
+        background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons_hdpi.png)
+    }
+
+    .pac-icon-search {
+        background-position: -1px -1px
+    }
+
+    .pac-item-selected .pac-icon-search {
+        background-position: -18px -1px
+    }
+
+    .pac-icon-marker {
+        background-position: -1px -161px
+    }
+
+    .pac-item-selected .pac-icon-marker {
+        background-position: -18px -161px
+    }
+
+    .pac-placeholder {
+        color: gray
+    }</style>
+
+
+    <!--#####CMSHEADER BEGIN ####-->
+
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.00011, maximum-scale=1, user-scalable=no, shrink-to-fit=no"-->
+    <meta name="viewport"
+          content="initial-scale=1.0001, minimum-scale=1.0001, maximum-scale=1.0001, user-scalable=no">
+    <link rel="stylesheet" href="/app2drive/ressources.nsf/css/app2drive.css?open&amp;v=03.03.04">
+
+
+    <link href="/app2drive/de-en/app2drive.nsf/s/T00.css" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+<div class="service">
+    <div class="responsiveContainer">
+
+
+        <nav id="customerNavigation">
+            <ul>
+
+                <li class="active">
+                    <a href="en/private-customers/" class="privateCustomer">Private customers</a>
+                </li>
+
+                <li>
+                    <a href="en/business-customers/" class="businessCustomer">Apply as
+                        partner</a>
+                </li>
+
+                <li>
+                    <a href="en/Corporate-mobility/" class="Corporate Mobility">Corporate Mobility</a>
+                </li>
+
+            </ul>
+
+            <!--<select>-->
+
+            <!--<option value="/en/private-customers/" selected="selected">Private customers</option>-->
+
+            <!--<option value="/en/business-customers/">Business customers</option>-->
+
+            <!--<option value="/en/apartment-complexes/">Apartment complexes</option>-->
+
+            <!--</select>-->
+        </nav>
+
+
+        <!--<nav id="serviceNavigation">-->
+        <!--<ul>-->
+
+        <!--<li id="languageMenu">-->
+        <!--<a class="icon-bubble">English</a>-->
+
+        <!--<ul>-->
+
+        <!--<li>-->
+        <!--<a href="de/privatkunden/" class="">-->
+        <!--Deutsch-->
+        <!--</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="fr/clients-prives/" class="">-->
+        <!--Français-->
+        <!--</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="en/private-customers/" class="active">-->
+        <!--English-->
+        <!--</a>-->
+        <!--</li>-->
+
+        <!--</ul>-->
+        <!--</li>-->
+
+
+        <!--<li class="showOnlyOnSmartphone">-->
+        <!--<a href="en/login/">Login</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="en/media/">Media</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="en/help/">Help</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="en/contact/">Contact</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="en/about-mobility/">About Mobility</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="en/jobs/">Jobs</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+        <!--<a href="en/carsharing-software/">Carsharing Software</a>-->
+        <!--</li>-->
+
+
+        <!--<li id="search">-->
+        <!--<a href="en/search/">-->
+        <!--Search-->
+        <!--</a>-->
+
+        <!--<ul>-->
+        <!--<li>-->
+        <!--<form action="en/search/" method="post">-->
+        <!--<input type="text" name="tx_indexedsearch[sword]" id="inputSearch">-->
+        <!--</form>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+
+        <!--</ul>-->
+        <!--</nav>-->
+
+    </div>
+</div>
+<div class="header">
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-4  col-sm-4 col-xs-4 header-logo">
+                <a href="/app2drive/de-en/app2drive.nsf" alt="Home"> <img class="logo"
+                                                                          src="/app2drive/de-en/app2drive.nsf/m/logo.png/$FILE/logo.png"></a>
+                <!--2ndLogo-->
+                <!--AdditionalHeaderInfo-->
+            </div>
+            <div class="col-md-8 col-sm-8  text-right pull-right header-siteservice">
+                <ul class="siteservice">
+                    <li><a href="/app2drive/de-en/app2drive.nsf/c/siteservice,register" target="_self">Register now</a>
+                    </li>
+                    <li><a href="/app2drive/de-en/app2drive.nsf/c/siteservice,apply_as_partner" target="_self">Apply as
+                        partner</a></li>
+                    <li><a href="https://www.app2drive.com/en/becomeacorporate" target="_self">Corporate Mobility</a>
+                    </li>
+                    <li><a href="/app2drive/de-en/app2drive.nsf/c/siteservice,contact" target="_self">Contact</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="views">
+    <div class="view" id="main-view">
+        <div id="sidebar"></div>
+        <div id="map"></div>
+    </div>
+    <div class="view" style="display: none;" id="second-view">
+
+        <div id="car-view">
+
+        </div>
+        <div class="date-selector">
+            <div class="t3-app-wrapper">
+                <!-- ### App Begin ### -->
+
+
+                <script type="text/javascript">
+                    var sx_reservation_tpl = "home";
+                    var sx_current_liso = "UA";
+                    var sx_country_name = "Ukraine";
+                    var sx_language = "en_US".substr(0, 2);
+                    var sx_ctyp = "pkw";
+                    var sx_user_device = "desktop";
+
+                    // partner params
+                    var sx_micronexus_language = "2";
+                    var sx_micronexus_affiliate_id = "397";
+
+                    // flag delivery and collection in case of reload
+                    var sx_show_del_col = false;
+
+                    // flag customer own insurance
+                    var sx_show_coi = false;
+
+                    // ATTENTION! No comma behind last element!!!
+                    // find strings of common use (home, offerselect, start) in incl/booking_stringvars.tpl
+                    //
+                    var sx_res_txt = {};
+
+
+                </script>
+
+                <div id="sx-home-reservation-wrapper">
+                    <div id="sx-home-form-wrapper" class="sx-home-ibe-wrapper">
+
+
+                        <script type="text/javascript"
+                                src="https://maps-api-ssl.google.com/maps/api/js?v=3.26&amp;client=gme-esixtgmbhcokg&amp;channel=sixt"></script>
+
+                        <script type="text/javascript" src="/jsbase/google/google.marker-manager-1.0-v3.js"></script>
+                        <script type="text/javascript">
+                            // we display the map
+                            // initialize suggest with googlemaps
+                            var sx_has_google_map = true;
+                        </script>
+
+
+                        <script type="text/javascript">
+
+                            // include localized textstrings for booking...
+                            if (typeof sx_res_txt === "undefined") {
+                                sx_res_txt = {};
+                            }
+
+                            sx_res_txt['choose_country'] = 'Select a country:';
+                            sx_res_txt['choose_town'] = 'Select a city:';
+                            sx_res_txt['choose_partner'] = 'Partner search for:';
+
+                            sx_res_txt['station_downtown'] = 'Sixt City stations';
+                            sx_res_txt['station_railway'] = 'Sixt railway stations';
+                            sx_res_txt['station_airport'] = 'Sixt airport stations';
+                            sx_res_txt['station_nearby'] = 'Nearest Sixt location to \<span\>%s\<\/span\>';
+                            sx_res_txt['town_sixt'] = 'More cities with Sixt locations';
+                            sx_res_txt['town_other'] = 'More cities';
+                            sx_res_txt['google_suggest'] = 'Please continue or did you mean...';
+                            sx_res_txt['no_matches'] = '... please check your entry for typing errors or choose a \<em\>country\<\/em\> first.';
+                            sx_res_txt['country'] = 'Countries';
+                            sx_res_txt['partner'] = 'Sixt International Partners';
+                            sx_res_txt['login_user_first'] = 'Please state your card number / customer number or username first';
+                            sx_res_txt['phone'] = 'Phone no.';
+                            sx_res_txt['fax'] = 'Fax';
+                            sx_res_txt['welcome'] = 'Welcome';
+                            sx_res_txt['login'] = 'Login';
+                            sx_res_txt['customerlogin'] = 'Sixt customer login';
+                            sx_res_txt['error'] = 'Unfortunately an error occurred';
+                            sx_res_txt['error_suggest'] = 'Please continue....';
+                            sx_res_txt['error_radius'] = 'Sorry, there were no results found.';
+                            sx_res_txt['error_partner'] = 'The combination of these stations is not possible!';
+                            sx_res_txt['error_from_fleet'] = 'The vehicle group selected is unfortunately not available in the chosen rental location. You can go ahead and select another group.';
+
+                            sx_res_txt['no_matches_rd'] = 'Unfortunately, no stations could be found in the vicinity of %s. Please enter a different city or first choose a \<em\>country\<\/em\>.';
+                            sx_res_txt['distance'] = 'Distance';
+                            sx_res_txt['logintitle'] = 'Rate selection';
+                            sx_res_txt['loginselect'] = 'Login with...';
+                            sx_res_txt['error_datepicker'] = 'Please check the date stated or use the calendar function.';
+
+                            sx_res_txt['success_logout'] = 'You have been logged out successfully.';
+                            sx_res_txt['tell_a_friend'] = 'Recommend this offer';
+                            sx_res_txt['agb'] = 'Rental information';
+                            sx_res_txt['currencyselect'] = 'Change currency';
+
+                            sx_res_txt['openhours'] = 'Opening hours'
+                            sx_res_txt['+49-1805'] = ' 0.14 per minute from German fixed-line network, calls from mobile networks up to 0.42 per minute';
+                            sx_res_txt['0049-1805'] = ' 0.14 per minute from German fixed-line network, calls from mobile networks up to 0.42 per minute';
+                            sx_res_txt['+49-1806'] = '0.20 €/call from german landline network, 0.60 €/call from german mobile network';
+                            sx_res_txt['0049-1806'] = '0.20 €/call from german landline network, 0.60 €/call from german mobile network';
+                            sx_res_txt['MO'] = 'Monday';
+                            sx_res_txt['TU'] = 'Tuesday';
+                            sx_res_txt['WE'] = 'Wednesday';
+                            sx_res_txt['TH'] = 'Thursday';
+                            sx_res_txt['FR'] = 'Friday';
+                            sx_res_txt['SA'] = 'Saturday';
+                            sx_res_txt['SU'] = 'Sunday';
+                            sx_res_txt['MO-TU'] = 'Monday - Tuesday';
+                            sx_res_txt['MO-WE'] = 'Monday - Wednesday';
+                            sx_res_txt['MO-TH'] = 'Monday - Thursday';
+                            sx_res_txt['MO-FR'] = 'Monday - Friday';
+                            sx_res_txt['MO-SA'] = 'Monday - Saturday';
+                            sx_res_txt['TH-FR'] = 'Thursday-Friday';
+                            sx_res_txt['MO-SU'] = 'Daily';
+                            sx_res_txt['SA-SU'] = 'Saturday - Sunday';
+                            sx_res_txt['TU-TH'] = 'Tuesday - Thursday';
+                            sx_res_txt['HO'] = 'Holiday';
+                            sx_res_txt['and'] = 'and';
+                            sx_res_txt['clock'] = 'hrs';
+                            sx_res_txt['closed'] = 'Closed';
+                            sx_res_txt['fastlane'] = 'Pick-up is in self service - you need an Apple iPhone with installed Sixt app and a successful fastlane registration';
+
+                            sx_res_txt['pu_allowed'] = '24 hour pickup';
+                            sx_res_txt['pu_onrequest'] = '24 hour pickup on request';
+                            sx_res_txt['ret_allowed'] = '24 hour return';
+                            sx_res_txt['ret_onrequest'] = '24 hour return on request';
+                            sx_res_txt['puret_allowed'] = '24h Pickup / Return';
+                            sx_res_txt['puret_onrequest'] = '24h Pickup / Return upon request';
+
+                            sx_res_txt['alt_suggests'] = 'Available Sixt branches';
+                            sx_res_txt['alt_open_list'] = 'The following Sixt branches are open at the desired time:';
+                            sx_res_txt['alt_open_list_221'] = 'The following Sixt branches may have more vehicles available within the required time:';
+                            sx_res_txt['alt_open_hint'] = 'Select a branch as new pick-up location by clicking!';
+                            sx_res_txt['alt_origin_hd'] = 'The selected pick-up location is open:';
+
+                            sx_res_txt['sel_rate'] = 'Chosen Rate: <strong>%s</strong>';
+                            sx_res_txt['sel_home_rate'] = 'Chosen Rate: <strong>Public Rate</strong>';
+
+                            // geolocation
+                            sx_res_txt['pos_denied'] = 'Location search not authorised';
+                            sx_res_txt['pos_unavailable'] = 'Location search not available';
+                            sx_res_txt['pos_fail'] = 'Location search failed';
+                            sx_res_txt['pos_support'] = 'Location search not supported';
+                            sx_res_txt['your_geo_location'] = 'Your location';
+
+                            // loading spinner, waiter
+                            sx_res_txt['validating_data'] = 'Validating data...';
+                            sx_res_txt['calculate_offer'] = 'Calculating offers...';
+                            sx_res_txt['search_bestprice'] = 'Searching lowest fares...';
+                            sx_res_txt['make_best_offer'] = '...loading the best deals for you';
+                            sx_res_txt['sxAnimTitle'] = 'Don\'t forget to book';
+
+                            //Mobile banner
+                            sx_res_txt['text_android'] = 'Book even faster with the Sixt app <span>Free download from Google Play now!<\/span>',
+                                sx_res_txt['text_iphone'] = 'Book even faster with the Sixt app <span>Free download from the App Store now!<\/span>',
+                                sx_res_txt['text_iemobile'] = 'Book even faster with Sixt Windows-Mobile application. <span>Download for free in the AppStore!<\/span>',
+                                sx_res_txt['text_ipad'] = 'Speed up your reservations using the Sixt iPad application. <span>Download free of charge from the AppStore!<\/span>',
+                                sx_res_txt['text_gecko'] = 'Book even faster with Sixt test application. <span>Download for free in the AppStore!<\/span>'
+
+                            // SLP-63 start_fleet
+                            sx_res_txt['cardetails'] = 'Vehicle details';
+                            sx_res_txt['prepaid_pref'] = 'Prepaid-';
+                            sx_res_txt['incl_mwst'] = 'Incl. tax/VAT';
+                            sx_res_txt['equipment'] = 'Equipment, seats and luggage';
+                            sx_res_txt['restrictions'] = 'Please note';
+                            sx_res_txt['hinttext'] = '* Price value for a ###prpd### rental from ###uci_snamwww### station from ###uda### ###uti### until ###rda### ###rti###. Last checked: ###aeda### ###uhr###.';
+
+                            sx_res_txt['aircond'] = 'Air conditioning available';
+                            sx_res_txt['tuer'] = 'Doors';
+                            sx_res_txt['seat'] = 'Passengers';
+                            sx_res_txt['anko'] = 'Suitcase(s)';
+                            sx_res_txt['anta'] = 'Bag(s)';
+
+                            sx_res_txt['trnsmM'] = 'Manual transmission';
+                            sx_res_txt['trnsmA'] = 'Automatic transmission';
+                            sx_res_txt['load'] = 'Kg';
+                            sx_res_txt['cbm'] = 'cbm';
+                            sx_res_txt['navi'] = 'GPS guaranteed';
+                            sx_res_txt['years'] = 'years';
+                            sx_res_txt['license'] = 'Driver\'s license';
+                            sx_res_txt['backlink'] = 'Back to list of vehicle models';
+                            // SLP-63 delcol
+                            sx_res_txt['delcol'] = 'Delivery & collection service';
+                            // SLP-63 online checkin
+                            sx_res_txt['checkin_form'] = 'Online Check-In';
+                        </script>
+                        <script type="text/javascript">
+
+                            /**
+                             * find here localized datapicker vars
+                             * @author: joachim.wendenburg@sixt.de
+                             */
+
+                                // date format
+                            var sx_date_str = "m/d/y|0|12";
+
+                            var sx_datapicker_day_names = [
+                                'Sunday',
+                                'Monday',
+                                'Tuesday',
+                                'Wednesday',
+                                'Thursday',
+                                'Friday',
+                                'Saturday'
+                            ];
+
+                            var sx_datapicker_day_names_min = [
+                                'Su',
+                                'Mo',
+                                'Tu',
+                                'We',
+                                'Th',
+                                'Fr',
+                                'Sa'
+                            ];
+
+                            var sx_datapicker_month_names = [
+                                'Jan',
+                                'Feb',
+                                'March',
+                                'Apr',
+                                'May',
+                                'June',
+                                'July',
+                                'Aug',
+                                'Sep',
+                                'Oct',
+                                'Nov',
+                                'Dec'
+                            ];
+
+                            var sx_datapicker_month_names_short = [
+                                'Jan',
+                                'Feb',
+                                'March',
+                                'Apr',
+                                'May',
+                                'June',
+                                'July',
+                                'Aug',
+                                'Sep',
+                                'Oct',
+                                'Nov',
+                                'Dec'
+                            ];
+
+                            var sx_datapicker_txt_next = 'Next month';
+                            var sx_datapicker_txt_prev = 'Previous month';
+
+
+                        </script>
+                        <script type="text/javascript" src="/static/reservation/js/mobile/geolocation.js"></script>
+                        <script type="text/javascript">
+                            // disable suggest if sgrep, pusgrep or rsgrep
+
+                            // location
+                            var sx_location_info = {
+                                "liso": "UA",
+                                "lname": "Ukraine",
+                                "region": "",
+                                "city": "Lviv",
+                                "postal_code": "",
+                                "latitude": "49.8407",
+                                "longitude": "24.0305",
+                                "metro_code": "",
+                                "area_code": "",
+                                "http_accept_charset": "",
+                                "http_accept_encoding": "gzip",
+                                "http_accept_language": "ru,uk;q=0.8,en-US;q=0.6,en;q=0.4,pl;q=0.2",
+                                "supported_languages": "en"
+                            };
+
+                            var sx_ident_set = false;
+                            var sx_error_set = false;
+
+                            // in case of ctype-switch...
+                            var sx_entry_url_ctyp_switch = window.sx_entry_url_ctyp_switch || '/php/reservation/home_lkw?ctyp=L';
+
+                            // deactivate return's autofill for some special offers
+                            var sx_regrep_set = false;
+                            var sx_pugrep_set = false;
+
+
+                            // flag delivery and collection in case of reload
+                            var sx_show_del_col = false;
+
+                            var is_relaunch_delcol = true;
+
+                            //for delcol added
+                            var sx_geodelcol = {
+                                del: {
+                                    state: false,
+                                    adr: false,
+                                    alt: false,
+                                    wants: false
+                                },
+                                col: {
+                                    state: false,
+                                    adr: false,
+                                    alt: false,
+                                    wants: false
+                                }
+                            };
+
+
+                            // using alt field we need to tell datepicker what date to display
+                            var sx_def_uda = "04/05/2017";
+                            var sx_def_rda = "04/06/2017";
+
+                            // preselect cits
+                            var sx_pickup_json = {
+                                "station_airport": [{
+                                    "CIT": "110",
+                                    "FIR": "1",
+                                    "BNET": "1",
+                                    "VNET": "S",
+                                    "CART": "F",
+                                    "POOL": "4017",
+                                    "CFTY": "CJPVX",
+                                    "SNAM": "Frankfurt Airport",
+                                    "LISO": "DE",
+                                    "COUNTRY": "Germany",
+                                    "CITY": "DE-60549 Frankfurt am Main",
+                                    "ORT": "Frankfurt am Main",
+                                    "PLZ": "60549",
+                                    "STR": "Hugo-Eckener-Ring\/Mietwagenz.",
+                                    "TEL": "+49-1806666666",
+                                    "FAX": "+49-18062229300110",
+                                    "LATU": "50.051381",
+                                    "LOTU": "8.567991",
+                                    "ACIT": "FRA",
+                                    "CIAT": "FRA",
+                                    "TZON": "Europe\/Berlin",
+                                    "MDEL": "F",
+                                    "MCOL": "F",
+                                    "HINT": "",
+                                    "CLOSED": [],
+                                    "OPENHOURS": {
+                                        "MO-FR": ["05:00 - 24:00"],
+                                        "SA-SU": ["06:00 - 24:00"],
+                                        "HO": ["06:00 - 24:00"]
+                                    },
+                                    "MOBILEKEY": "",
+                                    "OOH": {
+                                        "PICKUP": {"ALLOWED": "", "ONREQUEST": ""},
+                                        "RETURN": {"ALLOWED": "1", "ONREQUEST": ""}
+                                    },
+                                    "STREETMATCH": "",
+                                    "DIST": ""
+                                }],
+                                "station_railway": [],
+                                "station_downtown": [],
+                                "station_nearby": [],
+                                "partner": [],
+                                "town_other": [],
+                                "country": []
+                            };
+                            var sx_return_json = {
+                                "station_airport": [{
+                                    "CIT": "110",
+                                    "FIR": "1",
+                                    "BNET": "1",
+                                    "VNET": "S",
+                                    "CART": "F",
+                                    "POOL": "4017",
+                                    "CFTY": "CJPVX",
+                                    "SNAM": "Frankfurt Airport",
+                                    "LISO": "DE",
+                                    "COUNTRY": "Germany",
+                                    "CITY": "DE-60549 Frankfurt am Main",
+                                    "ORT": "Frankfurt am Main",
+                                    "PLZ": "60549",
+                                    "STR": "Hugo-Eckener-Ring\/Mietwagenz.",
+                                    "TEL": "+49-1806666666",
+                                    "FAX": "+49-18062229300110",
+                                    "LATU": "50.051381",
+                                    "LOTU": "8.567991",
+                                    "ACIT": "FRA",
+                                    "CIAT": "FRA",
+                                    "TZON": "Europe\/Berlin",
+                                    "MDEL": "F",
+                                    "MCOL": "F",
+                                    "HINT": "",
+                                    "CLOSED": [],
+                                    "OPENHOURS": {
+                                        "MO-FR": ["05:00 - 24:00"],
+                                        "SA-SU": ["06:00 - 24:00"],
+                                        "HO": ["06:00 - 24:00"]
+                                    },
+                                    "MOBILEKEY": "",
+                                    "OOH": {
+                                        "PICKUP": {"ALLOWED": "", "ONREQUEST": ""},
+                                        "RETURN": {"ALLOWED": "1", "ONREQUEST": ""}
+                                    },
+                                    "STREETMATCH": "",
+                                    "DIST": ""
+                                }],
+                                "station_railway": [],
+                                "station_downtown": [],
+                                "station_nearby": [],
+                                "partner": [],
+                                "town_other": [],
+                                "country": []
+                            };
+
+                            // preset searchstring
+                            var sx_preset_searchstr = '';
+                            var sx_return_as_pickup = true;
+                        </script>
+
+
+                        <div class="sx-ibe-horizontal-wrapper sx-ibe-active-zone">
+                            <form id="sx-js-ibe-form" class="sx-ibe-form" name="offer_request"
+                                  action="https://www.sixt.com/php/reservation/offerselect" method="post"
+                                  onsubmit="return sx_offer_request()">
+                                <input type="hidden" id="sx-tab-identifier" name="tab_identifier" value="1491221440">
+                                <input type="hidden" id="sx-js-res-pickup-cit" name="uci" value="110">
+                                <input type="hidden" id="sx-js-res-return-cit" name="rci" value="110">
+                                <input type="hidden" id="sx-js-res-pickup-liso" name="uli" value="DE">
+                                <input type="hidden" id="sx-js-res-return-liso" name="rli" value="DE">
+                                <input type="hidden" id="sx-js-res-layout" name="layout" value="list">
+                                <input type="hidden" id="sx-js-res-posl" name="posl" value="UA">
+                                <input type="hidden" id="sx-js-res-is-corpcust" name="is_corpcust" value="">
+                                <input type="hidden" id="sx-has-social-login" name="has_social_login" value="">
+
+                                <!-- hide, only needed in the background -->
+                                <div style="width:0; height:0; overflow:hidden; visibility:hidden;">
+                                    <input id="sx-res-pu-eq-ret" type="checkbox" name="pu_eq_ret" value="1"
+                                           checked="checked">
+                                </div>
+
+
+                                <div id="sx-js-ibe-horizontal" class="ibe-horizontal ibe-horizontal-par">
+
+                                    <!-- options -->
+                                    <div class="sx-home-options-wrapper">
+                                        <div id="sx-js-res-booking-del-col" class="sx-res-booking-del-col ">
+                    <span class="sx-fake-checkbox">
+                        <input id="sx-res-uk-del" class="sx-gc-ck" type="checkbox" name="wants_uk_del" value="1"
+                               onclick="sx_select_del_col('del')">
+                        <label for="sx-res-uk-del">UK Delivery</label>
+                    </span>
+                                            <span class="sx-fake-checkbox">
+                        <input id="sx-res-uk-col" class="sx-gc-ck" type="checkbox" name="wants_uk_col" value="1"
+                               onclick="sx_select_del_col('col')">
+                        <label for="sx-res-uk-col">UK Collection</label>
+                    </span>
+                                        </div>
+
+                                        <div id="sx-js-res-booking-coi" class="sx-res-booking-coi">
+                    <span class="sx-fake-checkbox">
+                        <input id="sx-res-coi" class="sx-gc-ck" type="checkbox" name="wants_coi" value="1">
+                        <label for="sx-res-coi">Customer own insurance</label>
+                    </span>
+                                        </div>
+                                    </div>
+                                    <!-- /options -->
+
+                                    <div class="ibe-location-section">
+                                        <div id="sx-js-ibe-location-pickup" class="ibe-column ibe-location-pickup">
+                                            <div class="ibe-entry-label ibe-entry-label-pu">
+                                                <label>Pickup <span class="ibe-entry-label-par-txt">&amp; return</span></label>
+                                                <div class="ibe-button-par ibe-button-par-pickup"
+                                                     onclick="sx_station_suggest.set_return_as_pickup('sx-js-ibe-horizontal')">
+                                                    Change return
+                                                </div>
+                                            </div>
+
+                                            <!-- pu loc -->
+                                            <div class="ddlist-wrapper sx-res-ddlist-wrapper sx-res-pu-location"
+                                                 id="sx-js-res-pu-location" style="position: relative; z-index: 3100;">
+                                                <!-- DELCOL/geodelcol-classes added -->
+                                                <span class="sx-gc-singleentry-wrapper sx-js-res-dep-uk-del sx-res-geodelcol-off sx-js-res-geodelcol-off sx-js-res-geodelcol-off-del sx-res-location-entry">
+                            <input class="sx-res-booking-entry sx-res-ibe-location" type="text"
+                                   value="City, ZIP, Airport Code, Hotel, etc." autocomplete="off">
+                            <span class="sx-js-res-get-loc" data-por="p"></span>
+                        </span>
+                                                <div class="sx-ddlist-suggest ddlist-content"
+                                                     style="display: none; position: absolute; z-index: 3200; top: 55px;">
+                                                    <ul id="sx-js-res-pu-list" class="sx-res-suggestlist ddlist-ul"
+                                                        style="height: 100%; overflow: auto;">
+                                                        <li><h5 class="sx-ddlist-hd-station_airport">Sixt airport
+                                                            stations</h5>
+                                                            <ul>
+                                                                <li class="sx-res-stationcat-station-airport">Frankfurt
+                                                                    Airport (DE)
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <div id="sx-js-res-pu-info-wrapper" class="sx-res-info-wrapper">
+                                                        <div class="sx-js-res-info-content sx-res-info-content">
+                                                            <h4>Info</h4>
+                                                        </div>
+                                                        <div id="sx-js-res-pu-google-map"
+                                                             class="sx-js-res-google-map"></div>
+                                                    </div>
+                                                    <span class="sx-res-info-wrapper-arrow">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                            <!-- /pu loc -->
+
+                                            <!-- GEODELCOL DELIVERY CHECKBOX-->
+                                            <div class="sx-geodelcol-section sx-delcol-item-wrapper">
+                                                <div class="sx-delcol-item sx-js-res-geodelcol-ck-del sx-fake-checkbox"
+                                                     style="display: none;">
+                                                    <input data-delcol="del" id="sx-res-del-col-pu" class="sx-gc-ck"
+                                                           type="checkbox" name="wants_geo_delivery" value="1"
+                                                           onclick="sx_del_col.dpl(this)">
+                                                    <label for="sx-res-del-col-pu">Delivery to your preferred
+                                                        address</label>
+                                                </div>
+                                            </div>
+                                            <!-- /GEODELCOL DELIVERY CHECKBOX -->
+                                        </div>
+
+                                        <div id="sx-js-ibe-location-return" class="ibe-column ibe-location-return">
+                                            <div class="ibe-entry-label ibe-entry-label-ret">
+                                                <label>Return</label>
+                                                <div class="ibe-button-par ibe-button-par-return"
+                                                     onclick="sx_station_suggest.set_return_as_pickup('sx-js-ibe-horizontal')">
+                                                    <strong>&nbsp; x</strong></div>
+                                            </div>
+
+                                            <!-- ret loc -->
+                                            <div class="ddlist-wrapper sx-res-ddlist-wrapper sx-res-ret-location"
+                                                 id="sx-js-res-ret-location" style="position: relative; z-index: 3100;">
+                                                <!-- DELCOL/geodelcol-classes added -->
+                                                <span class="sx-gc-singleentry-wrapper sx-js-res-dep-uk-col sx-res-geodelcol-off sx-js-res-geodelcol-off sx-js-res-geodelcol-off-col sx-res-location-entry">
+                            <input class="sx-res-booking-entry sx-res-ibe-location" type="text"
+                                   value="City, ZIP, Airport Code, Hotel, etc." autocomplete="off">
+                            <span class="sx-js-res-get-loc" data-por="r"></span>
+                        </span>
+                                                <div class="sx-ddlist-suggest ddlist-content"
+                                                     style="display: none; position: absolute; z-index: 3200; top: 0px;">
+                                                    <ul id="sx-js-res-ret-list" class="sx-res-suggestlist ddlist-ul"
+                                                        style="height: 100%; overflow: auto;">
+                                                        <li><h5 class="sx-ddlist-hd-station_airport">Sixt airport
+                                                            stations</h5>
+                                                            <ul>
+                                                                <li class="sx-res-stationcat-station-airport">Frankfurt
+                                                                    Airport (DE)
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <div id="sx-js-res-ret-info-wrapper" class="sx-res-info-wrapper">
+                                                        <div class="sx-js-res-info-content sx-res-info-content">
+                                                            <h4>Info</h4>
+                                                        </div>
+                                                        <div id="sx-js-res-ret-google-map"
+                                                             class="sx-js-res-google-map"></div>
+                                                    </div>
+                                                    <span class="sx-res-info-wrapper-arrow">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                            <!-- /ret loc -->
+
+                                            <!-- GEODELCOL COLLECTION CHECKBOX -->
+                                            <div class="sx-geodelcol-section sx-delcol-item-wrapper">
+                                                <div class="sx-delcol-item sx-js-res-geodelcol-ck-col sx-fake-checkbox"
+                                                     style="display: none;">
+                                                    <input data-delcol="col" id="sx-res-del-col-ret" class="sx-gc-ck"
+                                                           type="checkbox" name="wants_geo_collection" value="1"
+                                                           onclick="sx_del_col.dpl(this)">
+                                                    <label for="sx-res-del-col-ret">Collection from your preferred
+                                                        address</label>
+                                                </div>
+                                            </div>
+                                            <!-- /GEODELCOL COLLECTION CHECKBOX -->
+                                        </div>
+                                    </div>
+                                    <div class="ibe-datetime-section">
+                                        <div class="ibe-column ibe-datetime-pickup">
+                                            <div class="ibe-entry-label">
+                                                <label>Pickup time</label>
+                                            </div>
+                                            <!-- pu datetime -->
+                                            <div id="sx-js-res-pu-datetime">
+                                                <div class="ddlist-wrapper" id="sx-js-res-pu-datetime-entry"
+                                                     style="position: relative; z-index: 3100;">
+                                                    <div class="sx-gc-multientry-wrapper">
+                                                        <input id="sx-js-res-pu-date"
+                                                               class="sx-res-booking-entry sx-gc-leftfloater sx-js-datepicker sx-res-ibe-date hasDatepicker"
+                                                               name="uda" type="text" value="04/05/2017" readonly=""
+                                                               autocomplete="off">
+                                                        <input id="sx-js-res-pu-time"
+                                                               class="sx-res-booking-entry sx-gc-rightfloater sx-res-ibe-time"
+                                                               name="uti" type="text" value="12:00 Noon"
+                                                               autocomplete="off" placeholder="12:00 Noon">
+                                                    </div>
+                                                    <div class="sx-ddlist-time ddlist-content"
+                                                         style="display: none; position: absolute; z-index: 3200; top: 55px;">
+                                                        <ul id="sx-js-res-pu-time-list" onclick=""
+                                                            style="overflow: auto; height: 100%;" class="ddlist-ul">
+                                                            <li id="sx-js-res-pu-time-item-0000">12:00 Midnight</li>
+                                                            <li id="sx-js-res-pu-time-item-0030">12:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0100">01:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0130">01:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0200">02:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0230">02:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0300">03:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0330">03:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0400">04:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0430">04:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0500">05:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0530">05:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0600">06:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0630">06:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0700">07:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0730">07:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0800">08:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0830">08:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0900">09:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-0930">09:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-1000">10:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-1030">10:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-1100">11:00 am</li>
+                                                            <li id="sx-js-res-pu-time-item-1130">11:30 am</li>
+                                                            <li id="sx-js-res-pu-time-item-1200">12:00 Noon</li>
+                                                            <li id="sx-js-res-pu-time-item-1230">12:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1300">01:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1330">01:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1400">02:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1430">02:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1500">03:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1530">03:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1600">04:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1630">04:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1700">05:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1730">05:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1800">06:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1830">06:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1900">07:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-1930">07:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2000">08:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2030">08:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2100">09:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2130">09:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2200">10:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2230">10:30 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2300">11:00 pm</li>
+                                                            <li id="sx-js-res-pu-time-item-2330">11:30 pm</li>
+                                                        </ul>
+                                                        <div id="sx-js-res-pu-time-info" class="sx-res-openhours-info">
+                                                            <h5>Opening hours</h5>
+                                                            <p>Hugo-Eckener-Ring/Mietwagenz., DE-60549 Frankfurt am
+                                                                Main, Germany</p>
+                                                            <table>
+                                                                <tbody>
+                                                                <tr class="sx-res-phone-info">
+                                                                    <td>Phone no.*</td>
+                                                                    <td>+49-1806666666</td>
+                                                                </tr>
+                                                                <tr class="sx-res-fax-info">
+                                                                    <td>Fax*</td>
+                                                                    <td>+49-18062229300110</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Monday - Friday</td>
+                                                                    <td>05:00 - 24:00 hrs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Saturday - Sunday</td>
+                                                                    <td>06:00 - 24:00 hrs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Holiday</td>
+                                                                    <td>06:00 - 24:00 hrs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td class="sx-res-ooh-note">24 hour return</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <p class="sx-res-phone-cost-note">* 0.20 €/call from german
+                                                                landline network, 0.60 €/call from german mobile
+                                                                network</p></div>
+                                                        <span class="sx-res-info-wrapper-arrow">&nbsp;</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /pu datetime -->
+                                        </div>
+
+                                        <!-- GEODELCOL DELIVERY ENTRIES -->
+                                        <div class="sx-geodelcol-section sx-js-res-geodelcol-on sx-js-res-geodelcol-on-del sx-res-del-col"
+                                             style="display:none">
+
+                                            <p class="sx-res-del-col-hd" style="display: none;">Where would you like
+                                                your rental car to be delivered?</p>
+                                            <p style="display: none;">
+                        <span class="sx-gc-singleentry-wrapper">
+                            <select data-delcol="del" name="geo_del_adrlist"
+                                    class="sx-js-res-geodelcol-adr sx-js-res-geodelcol-adr-del sx-res-booking-entry"></select>
+                        </span>
+                                            </p>
+
+                                            <div class="sx-js-res-geodelcol-alt-del sx-res-geodelcol-alt"
+                                                 style="display: none;">
+                                                <p>Please select an alternate address!</p>
+                                                <ul></ul>
+                                            </div>
+                                            <label class="sx-res-del-col-hd">New delivery address</label>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <input id="geo_del_name" name="geo_del_name" class="sx-has-placeholder sx-res-booking-entry"
+                                   type="text" placeholder="Name" autocomplete="off">
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <input id="geo_del_street" name="geo_del_street"
+                                   class="sx-has-placeholder sx-res-booking-entry" type="text"
+                                   placeholder="House no. / Street" autocomplete="off">
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-multientry-wrapper">
+                            <input id="geo_del_postcode" name="geo_del_postcode"
+                                   class="sx-has-placeholder sx-res-booking-entry sx-gc-zip sx-gc-leftfloater"
+                                   type="text" placeholder="Zip/Postal code" autocomplete="off">
+                            <input id="geo_del_town" name="geo_del_town"
+                                   class="sx-has-placeholder sx-res-booking-entry sx-gc-city sx-gc-rightfloater"
+                                   type="text" placeholder="City" autocomplete="off">
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <select id="geo_del_country" name="geo_del_country" class="sx-res-booking-entry">
+                                                                    <option value="AF">Afghanistan</option>
+                                                                    <option value="AL">Albania</option>
+                                                                    <option value="DZ">Algeria</option>
+                                                                    <option value="AD">Andorra</option>
+                                                                    <option value="AO">Angola</option>
+                                                                    <option value="AG">Antigua</option>
+                                                                    <option value="AR">Argentina</option>
+                                                                    <option value="AM">Armenia</option>
+                                                                    <option value="AW">Aruba</option>
+                                                                    <option value="AU">Australia</option>
+                                                                    <option value="AT">Austria</option>
+                                                                    <option value="AZ">Azerbaijan</option>
+                                                                    <option value="BS">Bahamas</option>
+                                                                    <option value="BH">Bahrain</option>
+                                                                    <option value="BD">Bangladesh</option>
+                                                                    <option value="BB">Barbados</option>
+                                                                    <option value="BY">Belarus</option>
+                                                                    <option value="BE">Belgium</option>
+                                                                    <option value="BZ">Belize</option>
+                                                                    <option value="BJ">Benin</option>
+                                                                    <option value="BM">Bermuda</option>
+                                                                    <option value="BT">Bhutan</option>
+                                                                    <option value="BO">Bolivia</option>
+                                                                    <option value="BA">Bosnia and Herzegovina</option>
+                                                                    <option value="BW">Botswana</option>
+                                                                    <option value="BR">Brazil</option>
+                                                                    <option value="VG">British Virgin Islands</option>
+                                                                    <option value="BN">Brunei</option>
+                                                                    <option value="BG">Bulgaria</option>
+                                                                    <option value="BF">Burkina Faso</option>
+                                                                    <option value="BI">Burundi</option>
+                                                                    <option value="KH">Cambodia</option>
+                                                                    <option value="CM">Cameroon</option>
+                                                                    <option value="CA">Canada</option>
+                                                                    <option value="CV">Cape Verde</option>
+                                                                    <option value="KY">Cayman Islands</option>
+                                                                    <option value="CF">Central African Republic</option>
+                                                                    <option value="TD">Chad</option>
+                                                                    <option value="CL">Chile</option>
+                                                                    <option value="CN">China</option>
+                                                                    <option value="CO">Colombia</option>
+                                                                    <option value="KM">Comoros</option>
+                                                                    <option value="CK">Cook Islands</option>
+                                                                    <option value="CR">Costa Rica</option>
+                                                                    <option value="HR">Croatia</option>
+                                                                    <option value="CU">Cuba</option>
+                                                                    <option value="CW">Curaçao</option>
+                                                                    <option value="CY">Cyprus</option>
+                                                                    <option value="CZ">Czech Republic</option>
+                                                                    <option value="CD">Democratic Republic of the Congo</option>
+                                                                    <option value="DK">Denmark</option>
+                                                                    <option value="DJ">Djibouti</option>
+                                                                    <option value="DM">Dominica</option>
+                                                                    <option value="DO">Dominican Republic</option>
+                                                                    <option value="TL">East Timor</option>
+                                                                    <option value="EC">Ecuador</option>
+                                                                    <option value="EG">Egypt</option>
+                                                                    <option value="SV">El Salvador</option>
+                                                                    <option value="GQ">Equatorial Guinea</option>
+                                                                    <option value="ER">Eritrea</option>
+                                                                    <option value="EE">Estonia</option>
+                                                                    <option value="ET">Ethiopia</option>
+                                                                    <option value="FK">Falkland Islands</option>
+                                                                    <option value="FO">Faroe Islands</option>
+                                                                    <option value="FJ">Fiji Islands</option>
+                                                                    <option value="FI">Finland</option>
+                                                                    <option value="FR">France</option>
+                                                                    <option value="GF">French Guiana</option>
+                                                                    <option value="PF">French Polynesia</option>
+                                                                    <option value="TF">French Southern Territories</option>
+                                                                    <option value="GA">Gabon</option>
+                                                                    <option value="GM">Gambia</option>
+                                                                    <option value="GE">Georgia</option>
+                                                                    <option value="DE">Germany</option>
+                                                                    <option value="GH">Ghana</option>
+                                                                    <option value="GI">Gibraltar</option>
+                                                                    <option value="GR">Greece</option>
+                                                                    <option value="GL">Greenland</option>
+                                                                    <option value="GD">Grenada</option>
+                                                                    <option value="GP">Guadeloupe</option>
+                                                                    <option value="GU">Guam</option>
+                                                                    <option value="GT">Guatemala</option>
+                                                                    <option value="GG">Guernsey</option>
+                                                                    <option value="GN">Guinea</option>
+                                                                    <option value="GW">Guinea-Bissau</option>
+                                                                    <option value="GY">Guyana</option>
+                                                                    <option value="HT">Haiti</option>
+                                                                    <option value="VA">Holy See (Vatican City State)</option>
+                                                                    <option value="HN">Honduras</option>
+                                                                    <option value="HK">Hong Kong</option>
+                                                                    <option value="HU">Hungary</option>
+                                                                    <option value="IS">Iceland</option>
+                                                                    <option value="IN">India</option>
+                                                                    <option value="ID">Indonesia</option>
+                                                                    <option value="IR">Iran</option>
+                                                                    <option value="IQ">Iraq</option>
+                                                                    <option value="IE">Ireland</option>
+                                                                    <option value="IL">Israel</option>
+                                                                    <option value="IT">Italy</option>
+                                                                    <option value="CI">Ivory Coast</option>
+                                                                    <option value="JM">Jamaica</option>
+                                                                    <option value="JP">Japan</option>
+                                                                    <option value="JE">Jersey</option>
+                                                                    <option value="JO">Jordan</option>
+                                                                    <option value="KZ">Kazakhstan</option>
+                                                                    <option value="KE">Kenya</option>
+                                                                    <option value="KI">Kiribati</option>
+                                                                    <option value="KP">Korea, Dem. People's Republic</option>
+                                                                    <option value="KS">Kosovo</option>
+                                                                    <option value="KW">Kuwait</option>
+                                                                    <option value="KG">Kyrgyzstan</option>
+                                                                    <option value="LA">Laos</option>
+                                                                    <option value="RE">La Réunion</option>
+                                                                    <option value="LV">Latvia</option>
+                                                                    <option value="LB">Lebanon</option>
+                                                                    <option value="LS">Lesotho</option>
+                                                                    <option value="LR">Liberia</option>
+                                                                    <option value="LY">Libya</option>
+                                                                    <option value="LI">Liechtenstein</option>
+                                                                    <option value="LT">Lithuania</option>
+                                                                    <option value="LU">Luxembourg</option>
+                                                                    <option value="MK">Macedonia</option>
+                                                                    <option value="MG">Madagascar</option>
+                                                                    <option value="MW">Malawi</option>
+                                                                    <option value="MY">Malaysia</option>
+                                                                    <option value="ML">Mali</option>
+                                                                    <option value="MT">Malta</option>
+                                                                    <option value="MQ">Martinique</option>
+                                                                    <option value="MR">Mauritania</option>
+                                                                    <option value="MU">Mauritius</option>
+                                                                    <option value="YT">Mayotte</option>
+                                                                    <option value="MX">Mexico</option>
+                                                                    <option value="MD">Moldova</option>
+                                                                    <option value="MC">Monaco</option>
+                                                                    <option value="MN">Mongolia</option>
+                                                                    <option value="ME">Montenegro</option>
+                                                                    <option value="MA">Morocco</option>
+                                                                    <option value="MZ">Mozambique</option>
+                                                                    <option value="MM">Myanmar</option>
+                                                                    <option value="NA">Namibia</option>
+                                                                    <option value="NP">Nepal</option>
+                                                                    <option value="NL">Netherlands</option>
+                                                                    <option value="AN">Netherlands Antilles</option>
+                                                                    <option value="NC">New Caledonia</option>
+                                                                    <option value="NZ">New Zealand</option>
+                                                                    <option value="NI">Nicaragua</option>
+                                                                    <option value="NE">Niger</option>
+                                                                    <option value="NG">Nigeria</option>
+                                                                    <option value="MP">Northern Mariana Islands</option>
+                                                                    <option value="NO">Norway</option>
+                                                                    <option value="OM">Oman</option>
+                                                                    <option value="PK">Pakistan</option>
+                                                                    <option value="PS">Palestine</option>
+                                                                    <option value="PA">Panama</option>
+                                                                    <option value="PG">Papua New Guinea</option>
+                                                                    <option value="PY">Paraguay</option>
+                                                                    <option value="PE">Peru</option>
+                                                                    <option value="PH">Philippines</option>
+                                                                    <option value="PL">Poland</option>
+                                                                    <option value="PT">Portugal</option>
+                                                                    <option value="PR">Puerto Rico</option>
+                                                                    <option value="QA">Qatar</option>
+                                                                    <option value="CG">Republic of the Congo</option>
+                                                                    <option value="RO">Romania</option>
+                                                                    <option value="RU">Russia</option>
+                                                                    <option value="RW">Rwanda</option>
+                                                                    <option value="BL">Saint Barthelemy</option>
+                                                                    <option value="KN">Saint Kitts and Nevis</option>
+                                                                    <option value="MF">Saint Martin</option>
+                                                                    <option value="PM">Saint Pierre et Miquelon</option>
+                                                                    <option value="VC">Saint Vincent and the Grenadines</option>
+                                                                    <option value="WS">Samoa</option>
+                                                                    <option value="SM">San Marino</option>
+                                                                    <option value="SA">Saudi Arabia</option>
+                                                                    <option value="SN">Senegal</option>
+                                                                    <option value="CS">Serbia</option>
+                                                                    <option value="RS">Serbia</option>
+                                                                    <option value="SC">Seychelles</option>
+                                                                    <option value="SL">Sierra Leone</option>
+                                                                    <option value="SG">Singapore</option>
+                                                                    <option value="SX">Sint Maarten</option>
+                                                                    <option value="SK">Slovakia</option>
+                                                                    <option value="SI">Slovenia</option>
+                                                                    <option value="SO">Somalia</option>
+                                                                    <option value="ZA">South Africa</option>
+                                                                    <option value="KR">South Korea</option>
+                                                                    <option value="SS">South Sudan</option>
+                                                                    <option value="ES">Spain</option>
+                                                                    <option value="LK">Sri Lanka</option>
+                                                                    <option value="LC">St. Lucia</option>
+                                                                    <option value="SD">Sudan</option>
+                                                                    <option value="SR">Suriname</option>
+                                                                    <option value="SZ">Swaziland</option>
+                                                                    <option value="SE">Sweden</option>
+                                                                    <option value="CH">Switzerland</option>
+                                                                    <option value="SY">Syria</option>
+                                                                    <option value="TW">Taiwan</option>
+                                                                    <option value="TJ">Tajikistan</option>
+                                                                    <option value="TZ">Tanzania</option>
+                                                                    <option value="TH">Thailand</option>
+                                                                    <option value="MV">The Maldives</option>
+                                                                    <option value="TG">Togo</option>
+                                                                    <option value="TO">Tonga</option>
+                                                                    <option value="TT">Trinidad and Tobago</option>
+                                                                    <option value="TN">Tunisia</option>
+                                                                    <option value="TR">Turkey</option>
+                                                                    <option value="TM">Turkmenistan</option>
+                                                                    <option value="TC">Turks and Caicos Islands</option>
+                                                                    <option value="UG">Uganda</option>
+                                                                    <option value="UA"
+                                                                            selected="selected">Ukraine</option>
+                                                                    <option value="AE">United Arab Emirates</option>
+                                                                    <option value="GB">United Kingdom</option>
+                                                                    <option value="UY">Uruguay</option>
+                                                                    <option value="US">USA</option>
+                                                                    <option value="UZ">Uzbekistan</option>
+                                                                    <option value="VE">Venezuela</option>
+                                                                    <option value="VN">Vietnam</option>
+                                                                    <option value="WF">Wallis and Futuna Islands</option>
+                                                                    <option value="YE">Yemen</option>
+                                                                    <option value="ZM">Zambia</option>
+                                                                    <option value="ZW">Zimbabwe</option>
+                                                            </select>
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <textarea id="geo_del_note" name="del_note" class="sx-has-placeholder sx-res-booking-entry"
+                                      placeholder="Comment"></textarea>
+                        </span>
+                                            </p>
+                                        </div>
+                                        <!-- /GEODELCOL DELIVERY ENTRIES -->
+
+                                        <!-- move return location here if delcol view -->
+                                        <div id="sx-js-ibe-location-return-delcol"
+                                             class="ibe-location-return-delcol-view"></div>
+                                        <!-- /move return location here if delcol view -->
+
+                                        <div class="ibe-column ibe-datetime-return">
+                                            <div class="ibe-entry-label">
+                                                <label>Return time</label>
+                                            </div>
+                                            <!-- ret datetime -->
+                                            <div id="sx-js-res-ret-datetime">
+                                                <div class="ddlist-wrapper" id="sx-js-res-ret-datetime-entry"
+                                                     style="position: relative; z-index: 3100;">
+                                                    <div class="sx-gc-multientry-wrapper">
+                                                        <input id="sx-js-res-ret-date"
+                                                               class="sx-res-booking-entry sx-gc-leftfloater sx-js-datepicker sx-res-ibe-date hasDatepicker"
+                                                               name="rda" type="text" value="04/06/2017" readonly=""
+                                                               autocomplete="off">
+                                                        <input id="sx-js-res-ret-time"
+                                                               class="sx-res-booking-entry sx-gc-rightfloater sx-res-ibe-time"
+                                                               name="rti" type="text" value="09:00 am"
+                                                               autocomplete="off" placeholder="09:00 am">
+                                                    </div>
+                                                    <div class="sx-ddlist-time ddlist-content"
+                                                         style="display: none; position: absolute; z-index: 3200; top: 55px;">
+                                                        <ul id="sx-js-res-ret-time-list" class="ddlist-ul"
+                                                            style="height: 100%; overflow: auto;">
+                                                            <li id="sx-js-res-ret-time-item-0000">12:00 Midnight</li>
+                                                            <li id="sx-js-res-ret-time-item-0030">12:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0100">01:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0130">01:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0200">02:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0230">02:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0300">03:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0330">03:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0400">04:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0430">04:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0500">05:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0530">05:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0600">06:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0630">06:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0700">07:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0730">07:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0800">08:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0830">08:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0900">09:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-0930">09:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-1000">10:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-1030">10:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-1100">11:00 am</li>
+                                                            <li id="sx-js-res-ret-time-item-1130">11:30 am</li>
+                                                            <li id="sx-js-res-ret-time-item-1200">12:00 Noon</li>
+                                                            <li id="sx-js-res-ret-time-item-1230">12:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1300">01:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1330">01:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1400">02:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1430">02:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1500">03:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1530">03:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1600">04:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1630">04:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1700">05:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1730">05:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1800">06:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1830">06:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1900">07:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-1930">07:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2000">08:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2030">08:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2100">09:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2130">09:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2200">10:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2230">10:30 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2300">11:00 pm</li>
+                                                            <li id="sx-js-res-ret-time-item-2330">11:30 pm</li>
+                                                        </ul>
+                                                        <div id="sx-js-res-ret-time-info" class="sx-res-openhours-info">
+                                                            <h5>Opening hours</h5>
+                                                            <p>Hugo-Eckener-Ring/Mietwagenz., DE-60549 Frankfurt am
+                                                                Main, Germany</p>
+                                                            <table>
+                                                                <tbody>
+                                                                <tr class="sx-res-phone-info">
+                                                                    <td>Phone no.*</td>
+                                                                    <td>+49-1806666666</td>
+                                                                </tr>
+                                                                <tr class="sx-res-fax-info">
+                                                                    <td>Fax*</td>
+                                                                    <td>+49-18062229300110</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Monday - Friday</td>
+                                                                    <td>05:00 - 24:00 hrs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Saturday - Sunday</td>
+                                                                    <td>06:00 - 24:00 hrs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Holiday</td>
+                                                                    <td>06:00 - 24:00 hrs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td class="sx-res-ooh-note">24 hour return</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <p class="sx-res-phone-cost-note">* 0.20 €/call from german
+                                                                landline network, 0.60 €/call from german mobile
+                                                                network</p></div>
+                                                        <span class="sx-res-info-wrapper-arrow">&nbsp;</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /ret datetime -->
+                                        </div>
+
+                                        <!-- GEODELCOL COLLECTION ENTRIES -->
+                                        <div class="sx-geodelcol-section sx-js-res-geodelcol-on sx-js-res-geodelcol-on-col sx-res-del-col"
+                                             style="display:none">
+
+                                            <p class="sx-res-del-col-hd" style="display: none;">Where would you like
+                                                your rental car to be delivered?</p>
+
+                                            <p style="display: none;">
+                        <span class="sx-gc-singleentry-wrapper">
+                            <select data-delcol="col" name="geo_col_adrlist"
+                                    class="sx-js-res-geodelcol-adr sx-js-res-geodelcol-adr-col sx-res-booking-entry"></select>
+                        </span>
+                                            </p>
+
+                                            <div class="sx-js-res-geodelcol-alt-col sx-res-geodelcol-alt"
+                                                 style="display: none;">
+                                                <p>Please select an alternate address!</p>
+                                                <ul></ul>
+                                            </div>
+
+                                            <label class="sx-res-del-col-hd">New collection address</label>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <input id="geo_col_name" name="geo_col_name" class="sx-has-placeholder sx-res-booking-entry"
+                                   type="text" placeholder="Name" autocomplete="off">
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <input id="geo_col_street" name="geo_col_street"
+                                   class="sx-has-placeholder sx-res-booking-entry" type="text"
+                                   placeholder="House no. / Street" autocomplete="off">
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-multientry-wrapper">
+                            <input id="geo_col_postcode" name="geo_col_postcode"
+                                   class="sx-has-placeholder sx-res-booking-entry sx-gc-zip sx-gc-leftfloater"
+                                   type="text" placeholder="Zip/Postal code" autocomplete="off">
+                            <input id="geo_col_town" name="geo_col_town"
+                                   class="sx-has-placeholder sx-res-booking-entry sx-gc-city sx-gc-rightfloater"
+                                   type="text" placeholder="City" autocomplete="off">
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <select id="geo_col_country" name="geo_col_country" class="sx-res-booking-entry">
+                                                                    <option value="AF">Afghanistan</option>
+                                                                    <option value="AL">Albania</option>
+                                                                    <option value="DZ">Algeria</option>
+                                                                    <option value="AD">Andorra</option>
+                                                                    <option value="AO">Angola</option>
+                                                                    <option value="AG">Antigua</option>
+                                                                    <option value="AR">Argentina</option>
+                                                                    <option value="AM">Armenia</option>
+                                                                    <option value="AW">Aruba</option>
+                                                                    <option value="AU">Australia</option>
+                                                                    <option value="AT">Austria</option>
+                                                                    <option value="AZ">Azerbaijan</option>
+                                                                    <option value="BS">Bahamas</option>
+                                                                    <option value="BH">Bahrain</option>
+                                                                    <option value="BD">Bangladesh</option>
+                                                                    <option value="BB">Barbados</option>
+                                                                    <option value="BY">Belarus</option>
+                                                                    <option value="BE">Belgium</option>
+                                                                    <option value="BZ">Belize</option>
+                                                                    <option value="BJ">Benin</option>
+                                                                    <option value="BM">Bermuda</option>
+                                                                    <option value="BT">Bhutan</option>
+                                                                    <option value="BO">Bolivia</option>
+                                                                    <option value="BA">Bosnia and Herzegovina</option>
+                                                                    <option value="BW">Botswana</option>
+                                                                    <option value="BR">Brazil</option>
+                                                                    <option value="VG">British Virgin Islands</option>
+                                                                    <option value="BN">Brunei</option>
+                                                                    <option value="BG">Bulgaria</option>
+                                                                    <option value="BF">Burkina Faso</option>
+                                                                    <option value="BI">Burundi</option>
+                                                                    <option value="KH">Cambodia</option>
+                                                                    <option value="CM">Cameroon</option>
+                                                                    <option value="CA">Canada</option>
+                                                                    <option value="CV">Cape Verde</option>
+                                                                    <option value="KY">Cayman Islands</option>
+                                                                    <option value="CF">Central African Republic</option>
+                                                                    <option value="TD">Chad</option>
+                                                                    <option value="CL">Chile</option>
+                                                                    <option value="CN">China</option>
+                                                                    <option value="CO">Colombia</option>
+                                                                    <option value="KM">Comoros</option>
+                                                                    <option value="CK">Cook Islands</option>
+                                                                    <option value="CR">Costa Rica</option>
+                                                                    <option value="HR">Croatia</option>
+                                                                    <option value="CU">Cuba</option>
+                                                                    <option value="CW">Curaçao</option>
+                                                                    <option value="CY">Cyprus</option>
+                                                                    <option value="CZ">Czech Republic</option>
+                                                                    <option value="CD">Democratic Republic of the Congo</option>
+                                                                    <option value="DK">Denmark</option>
+                                                                    <option value="DJ">Djibouti</option>
+                                                                    <option value="DM">Dominica</option>
+                                                                    <option value="DO">Dominican Republic</option>
+                                                                    <option value="TL">East Timor</option>
+                                                                    <option value="EC">Ecuador</option>
+                                                                    <option value="EG">Egypt</option>
+                                                                    <option value="SV">El Salvador</option>
+                                                                    <option value="GQ">Equatorial Guinea</option>
+                                                                    <option value="ER">Eritrea</option>
+                                                                    <option value="EE">Estonia</option>
+                                                                    <option value="ET">Ethiopia</option>
+                                                                    <option value="FK">Falkland Islands</option>
+                                                                    <option value="FO">Faroe Islands</option>
+                                                                    <option value="FJ">Fiji Islands</option>
+                                                                    <option value="FI">Finland</option>
+                                                                    <option value="FR">France</option>
+                                                                    <option value="GF">French Guiana</option>
+                                                                    <option value="PF">French Polynesia</option>
+                                                                    <option value="TF">French Southern Territories</option>
+                                                                    <option value="GA">Gabon</option>
+                                                                    <option value="GM">Gambia</option>
+                                                                    <option value="GE">Georgia</option>
+                                                                    <option value="DE">Germany</option>
+                                                                    <option value="GH">Ghana</option>
+                                                                    <option value="GI">Gibraltar</option>
+                                                                    <option value="GR">Greece</option>
+                                                                    <option value="GL">Greenland</option>
+                                                                    <option value="GD">Grenada</option>
+                                                                    <option value="GP">Guadeloupe</option>
+                                                                    <option value="GU">Guam</option>
+                                                                    <option value="GT">Guatemala</option>
+                                                                    <option value="GG">Guernsey</option>
+                                                                    <option value="GN">Guinea</option>
+                                                                    <option value="GW">Guinea-Bissau</option>
+                                                                    <option value="GY">Guyana</option>
+                                                                    <option value="HT">Haiti</option>
+                                                                    <option value="VA">Holy See (Vatican City State)</option>
+                                                                    <option value="HN">Honduras</option>
+                                                                    <option value="HK">Hong Kong</option>
+                                                                    <option value="HU">Hungary</option>
+                                                                    <option value="IS">Iceland</option>
+                                                                    <option value="IN">India</option>
+                                                                    <option value="ID">Indonesia</option>
+                                                                    <option value="IR">Iran</option>
+                                                                    <option value="IQ">Iraq</option>
+                                                                    <option value="IE">Ireland</option>
+                                                                    <option value="IL">Israel</option>
+                                                                    <option value="IT">Italy</option>
+                                                                    <option value="CI">Ivory Coast</option>
+                                                                    <option value="JM">Jamaica</option>
+                                                                    <option value="JP">Japan</option>
+                                                                    <option value="JE">Jersey</option>
+                                                                    <option value="JO">Jordan</option>
+                                                                    <option value="KZ">Kazakhstan</option>
+                                                                    <option value="KE">Kenya</option>
+                                                                    <option value="KI">Kiribati</option>
+                                                                    <option value="KP">Korea, Dem. People's Republic</option>
+                                                                    <option value="KS">Kosovo</option>
+                                                                    <option value="KW">Kuwait</option>
+                                                                    <option value="KG">Kyrgyzstan</option>
+                                                                    <option value="LA">Laos</option>
+                                                                    <option value="RE">La Réunion</option>
+                                                                    <option value="LV">Latvia</option>
+                                                                    <option value="LB">Lebanon</option>
+                                                                    <option value="LS">Lesotho</option>
+                                                                    <option value="LR">Liberia</option>
+                                                                    <option value="LY">Libya</option>
+                                                                    <option value="LI">Liechtenstein</option>
+                                                                    <option value="LT">Lithuania</option>
+                                                                    <option value="LU">Luxembourg</option>
+                                                                    <option value="MK">Macedonia</option>
+                                                                    <option value="MG">Madagascar</option>
+                                                                    <option value="MW">Malawi</option>
+                                                                    <option value="MY">Malaysia</option>
+                                                                    <option value="ML">Mali</option>
+                                                                    <option value="MT">Malta</option>
+                                                                    <option value="MQ">Martinique</option>
+                                                                    <option value="MR">Mauritania</option>
+                                                                    <option value="MU">Mauritius</option>
+                                                                    <option value="YT">Mayotte</option>
+                                                                    <option value="MX">Mexico</option>
+                                                                    <option value="MD">Moldova</option>
+                                                                    <option value="MC">Monaco</option>
+                                                                    <option value="MN">Mongolia</option>
+                                                                    <option value="ME">Montenegro</option>
+                                                                    <option value="MA">Morocco</option>
+                                                                    <option value="MZ">Mozambique</option>
+                                                                    <option value="MM">Myanmar</option>
+                                                                    <option value="NA">Namibia</option>
+                                                                    <option value="NP">Nepal</option>
+                                                                    <option value="NL">Netherlands</option>
+                                                                    <option value="AN">Netherlands Antilles</option>
+                                                                    <option value="NC">New Caledonia</option>
+                                                                    <option value="NZ">New Zealand</option>
+                                                                    <option value="NI">Nicaragua</option>
+                                                                    <option value="NE">Niger</option>
+                                                                    <option value="NG">Nigeria</option>
+                                                                    <option value="MP">Northern Mariana Islands</option>
+                                                                    <option value="NO">Norway</option>
+                                                                    <option value="OM">Oman</option>
+                                                                    <option value="PK">Pakistan</option>
+                                                                    <option value="PS">Palestine</option>
+                                                                    <option value="PA">Panama</option>
+                                                                    <option value="PG">Papua New Guinea</option>
+                                                                    <option value="PY">Paraguay</option>
+                                                                    <option value="PE">Peru</option>
+                                                                    <option value="PH">Philippines</option>
+                                                                    <option value="PL">Poland</option>
+                                                                    <option value="PT">Portugal</option>
+                                                                    <option value="PR">Puerto Rico</option>
+                                                                    <option value="QA">Qatar</option>
+                                                                    <option value="CG">Republic of the Congo</option>
+                                                                    <option value="RO">Romania</option>
+                                                                    <option value="RU">Russia</option>
+                                                                    <option value="RW">Rwanda</option>
+                                                                    <option value="BL">Saint Barthelemy</option>
+                                                                    <option value="KN">Saint Kitts and Nevis</option>
+                                                                    <option value="MF">Saint Martin</option>
+                                                                    <option value="PM">Saint Pierre et Miquelon</option>
+                                                                    <option value="VC">Saint Vincent and the Grenadines</option>
+                                                                    <option value="WS">Samoa</option>
+                                                                    <option value="SM">San Marino</option>
+                                                                    <option value="SA">Saudi Arabia</option>
+                                                                    <option value="SN">Senegal</option>
+                                                                    <option value="CS">Serbia</option>
+                                                                    <option value="RS">Serbia</option>
+                                                                    <option value="SC">Seychelles</option>
+                                                                    <option value="SL">Sierra Leone</option>
+                                                                    <option value="SG">Singapore</option>
+                                                                    <option value="SX">Sint Maarten</option>
+                                                                    <option value="SK">Slovakia</option>
+                                                                    <option value="SI">Slovenia</option>
+                                                                    <option value="SO">Somalia</option>
+                                                                    <option value="ZA">South Africa</option>
+                                                                    <option value="KR">South Korea</option>
+                                                                    <option value="SS">South Sudan</option>
+                                                                    <option value="ES">Spain</option>
+                                                                    <option value="LK">Sri Lanka</option>
+                                                                    <option value="LC">St. Lucia</option>
+                                                                    <option value="SD">Sudan</option>
+                                                                    <option value="SR">Suriname</option>
+                                                                    <option value="SZ">Swaziland</option>
+                                                                    <option value="SE">Sweden</option>
+                                                                    <option value="CH">Switzerland</option>
+                                                                    <option value="SY">Syria</option>
+                                                                    <option value="TW">Taiwan</option>
+                                                                    <option value="TJ">Tajikistan</option>
+                                                                    <option value="TZ">Tanzania</option>
+                                                                    <option value="TH">Thailand</option>
+                                                                    <option value="MV">The Maldives</option>
+                                                                    <option value="TG">Togo</option>
+                                                                    <option value="TO">Tonga</option>
+                                                                    <option value="TT">Trinidad and Tobago</option>
+                                                                    <option value="TN">Tunisia</option>
+                                                                    <option value="TR">Turkey</option>
+                                                                    <option value="TM">Turkmenistan</option>
+                                                                    <option value="TC">Turks and Caicos Islands</option>
+                                                                    <option value="UG">Uganda</option>
+                                                                    <option value="UA"
+                                                                            selected="selected">Ukraine</option>
+                                                                    <option value="AE">United Arab Emirates</option>
+                                                                    <option value="GB">United Kingdom</option>
+                                                                    <option value="UY">Uruguay</option>
+                                                                    <option value="US">USA</option>
+                                                                    <option value="UZ">Uzbekistan</option>
+                                                                    <option value="VE">Venezuela</option>
+                                                                    <option value="VN">Vietnam</option>
+                                                                    <option value="WF">Wallis and Futuna Islands</option>
+                                                                    <option value="YE">Yemen</option>
+                                                                    <option value="ZM">Zambia</option>
+                                                                    <option value="ZW">Zimbabwe</option>
+                                                            </select>
+                        </span>
+                                            </p>
+                                            <p>
+                        <span class="sx-gc-singleentry-wrapper">
+                            <textarea id="geo_col_note" name="col_note" class="sx-has-placeholder sx-res-booking-entry"
+                                      placeholder="Comment"></textarea>
+                        </span>
+                                            </p>
+                                        </div>
+                                        <!-- /GEODELCOL COLLECTION ENTRIES -->
+
+                                    </div>
+                                    <div class="ibe-button-section">
+                                        <p class="ibe-button" onclick="sx_offer_request();">
+                                            <span>Continue</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- residence -->
+                            <div id="sx-js-res-residence-wrapper" class="sx-res-residence-wrapper">
+                                <form class="sx-default-form">
+                                    <label for="posl_country">Permanent place of residence</label>
+                                    <div class="sx-res-country-wrapper">
+                                        <select class="sx-toggle-posl" id="posl_country" name="posl_country"
+                                                onchange="sx_toggle_posl_view(this)">
+                                            <option value="AF">Afghanistan</option>
+                                            <option value="AL">Albania</option>
+                                            <option value="DZ">Algeria</option>
+                                            <option value="AD">Andorra</option>
+                                            <option value="AO">Angola</option>
+                                            <option value="AG">Antigua</option>
+                                            <option value="AR">Argentina</option>
+                                            <option value="AM">Armenia</option>
+                                            <option value="AW">Aruba</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="AT">Austria</option>
+                                            <option value="AZ">Azerbaijan</option>
+                                            <option value="BS">Bahamas</option>
+                                            <option value="BH">Bahrain</option>
+                                            <option value="BD">Bangladesh</option>
+                                            <option value="BB">Barbados</option>
+                                            <option value="BY">Belarus</option>
+                                            <option value="BE">Belgium</option>
+                                            <option value="BZ">Belize</option>
+                                            <option value="BJ">Benin</option>
+                                            <option value="BM">Bermuda</option>
+                                            <option value="BT">Bhutan</option>
+                                            <option value="BO">Bolivia</option>
+                                            <option value="BA">Bosnia and Herzegovina</option>
+                                            <option value="BW">Botswana</option>
+                                            <option value="BR">Brazil</option>
+                                            <option value="VG">British Virgin Islands</option>
+                                            <option value="BN">Brunei</option>
+                                            <option value="BG">Bulgaria</option>
+                                            <option value="BF">Burkina Faso</option>
+                                            <option value="BI">Burundi</option>
+                                            <option value="KH">Cambodia</option>
+                                            <option value="CM">Cameroon</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="CV">Cape Verde</option>
+                                            <option value="KY">Cayman Islands</option>
+                                            <option value="CF">Central African Republic</option>
+                                            <option value="TD">Chad</option>
+                                            <option value="CL">Chile</option>
+                                            <option value="CN">China</option>
+                                            <option value="CO">Colombia</option>
+                                            <option value="KM">Comoros</option>
+                                            <option value="CK">Cook Islands</option>
+                                            <option value="CR">Costa Rica</option>
+                                            <option value="HR">Croatia</option>
+                                            <option value="CU">Cuba</option>
+                                            <option value="CW">Curaçao</option>
+                                            <option value="CY">Cyprus</option>
+                                            <option value="CZ">Czech Republic</option>
+                                            <option value="CD">Democratic Republic of the Congo</option>
+                                            <option value="DK">Denmark</option>
+                                            <option value="DJ">Djibouti</option>
+                                            <option value="DM">Dominica</option>
+                                            <option value="DO">Dominican Republic</option>
+                                            <option value="TL">East Timor</option>
+                                            <option value="EC">Ecuador</option>
+                                            <option value="EG">Egypt</option>
+                                            <option value="SV">El Salvador</option>
+                                            <option value="GQ">Equatorial Guinea</option>
+                                            <option value="ER">Eritrea</option>
+                                            <option value="EE">Estonia</option>
+                                            <option value="ET">Ethiopia</option>
+                                            <option value="FK">Falkland Islands</option>
+                                            <option value="FO">Faroe Islands</option>
+                                            <option value="FJ">Fiji Islands</option>
+                                            <option value="FI">Finland</option>
+                                            <option value="FR">France</option>
+                                            <option value="GF">French Guiana</option>
+                                            <option value="PF">French Polynesia</option>
+                                            <option value="TF">French Southern Territories</option>
+                                            <option value="GA">Gabon</option>
+                                            <option value="GM">Gambia</option>
+                                            <option value="GE">Georgia</option>
+                                            <option value="DE">Germany</option>
+                                            <option value="GH">Ghana</option>
+                                            <option value="GI">Gibraltar</option>
+                                            <option value="GR">Greece</option>
+                                            <option value="GL">Greenland</option>
+                                            <option value="GD">Grenada</option>
+                                            <option value="GP">Guadeloupe</option>
+                                            <option value="GU">Guam</option>
+                                            <option value="GT">Guatemala</option>
+                                            <option value="GG">Guernsey</option>
+                                            <option value="GN">Guinea</option>
+                                            <option value="GW">Guinea-Bissau</option>
+                                            <option value="GY">Guyana</option>
+                                            <option value="HT">Haiti</option>
+                                            <option value="VA">Holy See (Vatican City State)</option>
+                                            <option value="HN">Honduras</option>
+                                            <option value="HK">Hong Kong</option>
+                                            <option value="HU">Hungary</option>
+                                            <option value="IS">Iceland</option>
+                                            <option value="IN">India</option>
+                                            <option value="ID">Indonesia</option>
+                                            <option value="IR">Iran</option>
+                                            <option value="IQ">Iraq</option>
+                                            <option value="IE">Ireland</option>
+                                            <option value="IL">Israel</option>
+                                            <option value="IT">Italy</option>
+                                            <option value="CI">Ivory Coast</option>
+                                            <option value="JM">Jamaica</option>
+                                            <option value="JP">Japan</option>
+                                            <option value="JE">Jersey</option>
+                                            <option value="JO">Jordan</option>
+                                            <option value="KZ">Kazakhstan</option>
+                                            <option value="KE">Kenya</option>
+                                            <option value="KI">Kiribati</option>
+                                            <option value="KP">Korea, Dem. People's Republic</option>
+                                            <option value="KS">Kosovo</option>
+                                            <option value="KW">Kuwait</option>
+                                            <option value="KG">Kyrgyzstan</option>
+                                            <option value="LA">Laos</option>
+                                            <option value="RE">La Réunion</option>
+                                            <option value="LV">Latvia</option>
+                                            <option value="LB">Lebanon</option>
+                                            <option value="LS">Lesotho</option>
+                                            <option value="LR">Liberia</option>
+                                            <option value="LY">Libya</option>
+                                            <option value="LI">Liechtenstein</option>
+                                            <option value="LT">Lithuania</option>
+                                            <option value="LU">Luxembourg</option>
+                                            <option value="MK">Macedonia</option>
+                                            <option value="MG">Madagascar</option>
+                                            <option value="MW">Malawi</option>
+                                            <option value="MY">Malaysia</option>
+                                            <option value="ML">Mali</option>
+                                            <option value="MT">Malta</option>
+                                            <option value="MQ">Martinique</option>
+                                            <option value="MR">Mauritania</option>
+                                            <option value="MU">Mauritius</option>
+                                            <option value="YT">Mayotte</option>
+                                            <option value="MX">Mexico</option>
+                                            <option value="MD">Moldova</option>
+                                            <option value="MC">Monaco</option>
+                                            <option value="MN">Mongolia</option>
+                                            <option value="ME">Montenegro</option>
+                                            <option value="MA">Morocco</option>
+                                            <option value="MZ">Mozambique</option>
+                                            <option value="MM">Myanmar</option>
+                                            <option value="NA">Namibia</option>
+                                            <option value="NP">Nepal</option>
+                                            <option value="NL">Netherlands</option>
+                                            <option value="AN">Netherlands Antilles</option>
+                                            <option value="NC">New Caledonia</option>
+                                            <option value="NZ">New Zealand</option>
+                                            <option value="NI">Nicaragua</option>
+                                            <option value="NE">Niger</option>
+                                            <option value="NG">Nigeria</option>
+                                            <option value="MP">Northern Mariana Islands</option>
+                                            <option value="NO">Norway</option>
+                                            <option value="OM">Oman</option>
+                                            <option value="PK">Pakistan</option>
+                                            <option value="PS">Palestine</option>
+                                            <option value="PA">Panama</option>
+                                            <option value="PG">Papua New Guinea</option>
+                                            <option value="PY">Paraguay</option>
+                                            <option value="PE">Peru</option>
+                                            <option value="PH">Philippines</option>
+                                            <option value="PL">Poland</option>
+                                            <option value="PT">Portugal</option>
+                                            <option value="PR">Puerto Rico</option>
+                                            <option value="QA">Qatar</option>
+                                            <option value="CG">Republic of the Congo</option>
+                                            <option value="RO">Romania</option>
+                                            <option value="RU">Russia</option>
+                                            <option value="RW">Rwanda</option>
+                                            <option value="BL">Saint Barthelemy</option>
+                                            <option value="KN">Saint Kitts and Nevis</option>
+                                            <option value="MF">Saint Martin</option>
+                                            <option value="PM">Saint Pierre et Miquelon</option>
+                                            <option value="VC">Saint Vincent and the Grenadines</option>
+                                            <option value="WS">Samoa</option>
+                                            <option value="SM">San Marino</option>
+                                            <option value="SA">Saudi Arabia</option>
+                                            <option value="SN">Senegal</option>
+                                            <option value="CS">Serbia</option>
+                                            <option value="RS">Serbia</option>
+                                            <option value="SC">Seychelles</option>
+                                            <option value="SL">Sierra Leone</option>
+                                            <option value="SG">Singapore</option>
+                                            <option value="SX">Sint Maarten</option>
+                                            <option value="SK">Slovakia</option>
+                                            <option value="SI">Slovenia</option>
+                                            <option value="SO">Somalia</option>
+                                            <option value="ZA">South Africa</option>
+                                            <option value="KR">South Korea</option>
+                                            <option value="SS">South Sudan</option>
+                                            <option value="ES">Spain</option>
+                                            <option value="LK">Sri Lanka</option>
+                                            <option value="LC">St. Lucia</option>
+                                            <option value="SD">Sudan</option>
+                                            <option value="SR">Suriname</option>
+                                            <option value="SZ">Swaziland</option>
+                                            <option value="SE">Sweden</option>
+                                            <option value="CH">Switzerland</option>
+                                            <option value="SY">Syria</option>
+                                            <option value="TW">Taiwan</option>
+                                            <option value="TJ">Tajikistan</option>
+                                            <option value="TZ">Tanzania</option>
+                                            <option value="TH">Thailand</option>
+                                            <option value="MV">The Maldives</option>
+                                            <option value="TG">Togo</option>
+                                            <option value="TO">Tonga</option>
+                                            <option value="TT">Trinidad and Tobago</option>
+                                            <option value="TN">Tunisia</option>
+                                            <option value="TR">Turkey</option>
+                                            <option value="TM">Turkmenistan</option>
+                                            <option value="TC">Turks and Caicos Islands</option>
+                                            <option value="UG">Uganda</option>
+                                            <option value="UA" selected="selected">Ukraine</option>
+                                            <option value="AE">United Arab Emirates</option>
+                                            <option value="GB">United Kingdom</option>
+                                            <option value="UY">Uruguay</option>
+                                            <option value="US">USA</option>
+                                            <option value="UZ">Uzbekistan</option>
+                                            <option value="VE">Venezuela</option>
+                                            <option value="VN">Vietnam</option>
+                                            <option value="WF">Wallis and Futuna Islands</option>
+                                            <option value="YE">Yemen</option>
+                                            <option value="ZM">Zambia</option>
+                                            <option value="ZW">Zimbabwe</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /residence -->
+                            <!-- error booking -->
+                            <div class="sx-gc-error sx-ibe-error-msg sx-gc-error-invert" id="sx-js-res-error"
+                                 style="display:none">
+                            </div>
+                            <!-- /error booking -->
+                        </div>
+
+                        <div class="sx-ibe-additional-options sx-ibe-active-zone">
+                            <span class="sx-ibe-option-button" onclick="sx_ibe_dpl_delcol()" id="sx_open_delcol_in_box"
+                                  style="display: none;">Delivery and collection</span>
+                            <span class="sx-ibe-option-button" onclick="sx_dpl_checkin_form()"
+                                  id="sx_open_onlinecheckin_in_box">Rebooking &amp; cancellation</span>
+                            <span id="sx-js-open-login" class="sx-ibe-option-button" onclick="sx_ibe_dpl_login()">Sixt customer login</span>
+
+                            <p class="sx-js-res-login-state sx-res-login-state" style="display:none">
+                                <strong class="sx-js-res-login-state-name sx-js-res-login-state-upd">
+                                    <!-- ajax --></strong>
+                                <span class="sx-js-res-login-state-txt sx-js-res-login-state-upd"><!-- ajax --></span>
+
+                                <a class="sx-gc-active" href="#">(log out)</a>
+                                <span class="sx-res-login-state-corp sx-js-res-login-state-corp sx-js-res-login-state-upd"><!-- ajax --></span>
+                            </p>
+                        </div>
+
+                        <div id="sx-home-ibe-login" class="sx-gc-clearfix" style="display:none">
+                            <!-- login -->
+                            <div class="sx-home-login-wrapper">
+                                <form action="#">
+                                    <input type="hidden" name="tab_identifier" value="1491221440">
+                                    <div id="sx-js-home-login-box" class="sx-home-login-box">
+                                        <div class="sx-home-login-entries">
+                                            <p>
+                                                <label class="sx-res-ibe-login-label">Card number or username</label>
+                                                <span class="sx-gc-singleentry-wrapper">
+                                <input name="ident" id="sx-res-login-ident" class="sx-res-login-entry" type="text"
+                                       value="" autocomplete="off">
+                            </span>
+                                            </p>
+                                            <p class="sx-res-passw-wrapper">
+                                                <label class="sx-res-ibe-login-label">Password</label>
+                                                <span class="sx-gc-singleentry-wrapper">
+                                <input name="passw[]" id="sx-res-login-passw" class="sx-res-login-entry" type="password"
+                                       value="" autocomplete="off">
+                            </span>
+                                            </p>
+                                            <p class="sx-fake-checkbox">
+                                                <input id="sx-js-res-login-permanent" class="sx-gc-ck" type="checkbox"
+                                                       value="1" name="wants_permanant">
+                                                <label for="sx-js-res-login-permanent">Remember login</label>
+                                            </p>
+
+                                            <div class="sx-gc-error" id="sx-js-res-login-error" style="display:none">
+                                            </div>
+
+                                            <div id="sx-js-res-login-button" class="sx-gc-button-wrapper">
+                                                <p class="sx-gc-button-cta sx-gc-button-cta-green">
+                                                    <span>Login</span>
+                                                </p>
+                                            </div>
+
+                                            <div class="sx-home-passwd-forgotten">
+                                                <p>
+                                                    <a href="https://www.sixt.com/php/profile/login_or_password_forgotten?ref=home">Forgotten
+                                                        password</a></p>
+                                                <p>
+                                                    <a href="https://www.sixt.com/php/profile/login_or_password_forgotten?username=1&amp;ref=home">Forgotten
+                                                        username</a></p>
+                                            </div>
+
+                                            <div id="sx-js-res-mnum-list" class="box-window-mnum-content"
+                                                 style="display:none">
+                                                <h3>Please select a Sixt Card</h3>
+                                                <p>There are several Sixt Cards stored behind your profile. Please
+                                                    select one:</p>
+                                                <ul id="sx-res-mnum-list"></ul>
+                                            </div>
+                                            <div id="sx-js-res-passwd-forgotten" style="display:none"></div>
+
+                                            <div class="sx-home-social-media-wrapper">
+                                                <!-- social media login -->
+                                                <div class="sx-social-media-login">
+                                                    <h4>or</h4>
+                                                    <p>Log in using</p>
+                                                    <ul>
+                                                        <li>
+                                                            <a href="https://www.amazon.com/ap/oa?response_type=code&amp;redirect_uri=https%3A%2F%2Fwww.sixt.com%2Fphp%2Fprofile%2Fsocial_login&amp;client_id=amzn1.application-oa2-client.5085634be5924631b49f28d188cc8e7b&amp;scope=profile&amp;state=YW1hem9u"
+                                                               target="_blank"
+                                                               class="sx-social-media-icon sx-social-media-icon-amazon"
+                                                               data-social-media="amazon" title="Login via amazon"></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.facebook.com/dialog/oauth?response_type=code&amp;redirect_uri=https%3A%2F%2Fwww.sixt.com%2Fphp%2Fprofile%2Fsocial_login&amp;client_id=838075326232323&amp;scope=public_profile+email&amp;state=ZmFjZWJvb2s%3D"
+                                                               target="_blank"
+                                                               class="sx-social-media-icon sx-social-media-icon-facebook"
+                                                               data-social-media="facebook"
+                                                               title="Login via facebook"></a></li>
+                                                        <li>
+                                                            <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&amp;redirect_uri=https%3A%2F%2Fwww.sixt.com%2Fphp%2Fprofile%2Fsocial_login&amp;client_id=236103042903-81ocec3me6n9tjo8n95askom33heia6s.apps.googleusercontent.com&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.login+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&amp;state=Z29vZ2xl"
+                                                               target="_blank"
+                                                               class="sx-social-media-icon sx-social-media-icon-google"
+                                                               data-social-media="google" title="Login via google"></a>
+                                                        </li>
+                                                    </ul>
+                                                    <div id="sx-social-media-popup"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /login -->
+                        </div>
+
+
+                    </div>
+
+                    <div id="sx-js-checkin-form-wrapper" style="display:none">
+                        <form id="sx-js-checkin-form" class="sx-checkin-form" name="checkin_form"
+                              action="/php/resexpress">
+                            <input type="hidden" id="sx-tab-identifier" name="tab_identifier" value="1491221440">
+                            <div class="sx-home-login-entries">
+                                <div class="sx-home-checkin">
+                                    <p class="sx-fake-radio sx-gc-selected">
+                                        <input value="oci" type="radio" class="sx-gc-rd" name="option"
+                                               id="sx-js-option-a" checked="checked"><label for="sx-js-option-a">Online
+                                        Check-In</label>
+                                    </p>
+                                    <p class="sx-fake-radio">
+                                        <!-- click will result in a change of action and entry names, oci is default! -->
+                                        <input value="rebooking" type="radio" class="sx-gc-rd" name="option"
+                                               id="sx-js-option-b"><label for="sx-js-option-b">Change &amp;
+                                        Cancel</label>
+                                    </p>
+                                </div>
+
+                                <div class="sx-home-checkin">
+                                    <p class="sx-reservation-resnr">
+                                        <label class="sx-res-ibe-login-label">Reservation number</label>
+                                        <span class="sx-gc-singleentry-wrapper">
+                            <input id="sx-js-checkin-blnr" class="sx-res-booking-entry" type="text" value="" name="num"
+                                   autocomplete="off">
+                        </span>
+                                    </p>
+                                    <p class="sx-reservation-securecode">
+                                        <label class="sx-res-ibe-login-label">Security code</label>
+                                        <span class="sx-gc-singleentry-wrapper">
+                            <input id="sx-js-checkin-extr" class="sx-res-booking-entry" type="text" value="" name="qual"
+                                   autocomplete="off">
+                        </span>
+                                    </p>
+                                </div>
+
+                                <!-- checkin button -->
+                                <div id="sx-js-res-login-button" class="sx-gc-button-wrapper">
+                                    <button class="sx-gc-button-cta sx-gc-button-cta-green">
+                                        <span>Continue</span>
+                                    </button>
+                                </div>
+                                <!-- /checkin button -->
+
+                                <p><a class="sx-link" href="/mysixt">View and manage all your rentals</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div id="sx-js-mobile-banner" class="sx-mobile-app-wrapper" style="display:none;">
+                    <p class="sx-gc-close">X</p>
+                    <div class="sx-mobile-app-text">
+                        <a href="#" target="_blank">
+                            <img>
+                            <p></p>
+                        </a>
+                    </div>
+                </div>
+
+
+                <script type="text/javascript">
+
+                    var sx_get_nav_lang = function () {
+                        var lang = false;
+                        try {
+                            var len = (navigator.language.indexOf('-') === 2) ? 5 : 2;
+                            var lang = navigator.language.substr(0, len);
+                            return lang;
+                        } catch (err) {
+                        }
+                    };
+
+                </script>
+                <script type="text/javascript">
+                    var sx_asc_account = "sixtraccom";
+                </script>
+                <script type="text/javascript"
+                        src="/static/frontendthirdparty/sitecatalyst/app_measurement.js?_=2017-14"></script>
+
+                <!-- End SiteCatalyst code version: H.25.2. -->
+                <!-- reservation custom events -->
+                <script type="text/javascript" src="/static/reservation/js/sitecatalyst.js"></script>
+                <!-- /reservation custom events -->
+                <!-- tracking home/homecom -->
+
+                <!-- /tracking home/homecom -->
+                <!-- ### App End ### -->
+                <div id="t3-js-teaser-icons" class="t3-teaser-icons"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+<script src="./bower_components/leaflet/dist/leaflet.js"></script>
+<script src="./src/L.Control.Sidebar.js"></script>
+<script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js'></script>
+<link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet'/>
+
+<script>
+    var MapService = function () {
+        var map;
+
+        function init() {
+            map = L.map('map');
+            L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXlrb2xhdCIsImEiOiJjajB3ajEyNjQwMDB2MzNwOTN6NGszb2ZyIn0.1bVvnPjlL_cxJwXxwxWHpA', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; OpenStreetMap contributors'
+            }).addTo(map);
+            map.setView([50.1369745, 8.696875300000002], 12);
+        }
+
+        function addMarkerListeners(marker) {
+            marker.on("click", clickListener);
+            marker.on("mouseover", mouseOverListener);
+            marker.on("mouseout", mouseOutListener);
+            SidebarService.getSidebar().on("hide", MarkerService.handleSidebarHide)
+        }
+
+        function clickListener(e) {
+            MarkerService.handleClick(this)
+            if (MarkerService.isActive()) {
+                SidebarService.show(this, map._container.offsetWidth, e.originalEvent.layerX);
+            } else {
+                SidebarService.getSidebar().hide();
+            }
+        }
+
+        function mouseOverListener(e) {
+            MarkerService.handleMouseOver(this);
+            SidebarService.show(this, map._container.offsetWidth, e.originalEvent.layerX);
+        }
+
+        function mouseOutListener() {
+            MarkerService.handleMouseOut(this);
+            if (MarkerService.isActive()) {
+                SidebarService.show();
+            } else {
+                SidebarService.getSidebar().hide();
+            }
+        }
+
+        return {
+            getMap: function () {
+                if (!map) {
+                    init();
+                }
+                return map;
+            },
+            addSidebar: function (sidebar) {
+                this.getMap().addControl(sidebar);
+            },
+            addMarker: function (marker) {
+                marker.addTo(this.getMap());
+                //init marker listeners
+                addMarkerListeners(marker);
+            },
+            setMarkers: function (markers) {
+                var that = this;
+                markers.forEach(function (marker) {
+                    that.addMarker(marker);
+                });
+            }
+        }
+
+    }();
+    var VehicleService = function () {
+        var vehicle = [{
+            "id": 1,
+            "model": "S - Fiat 500 Cabrio",
+            "vehicleClass": "SUBCOMPACT",
+            "vehicleState": "AVAILABLE",
+            "description": "Comfort trip<br>Max speed <b>190km/h</b><br>Price <b>2USD/h</b>",
+            "image": "content_fiat_500.jpg"
+        }, {
+            "id": 2,
+            "model": "L - Peugeot 2008",
+            "vehicleClass": "LUX",
+            "vehicleState": "AVAILABLE",
+            "description": "Fast turbo engine<br>Max speed <b>290km/h</b><br>Price <b>4USD/h</b>",
+            "image": "content_peugot_2008.jpg"
+        }, {
+            "id": 3,
+            "model": "XL - Peugeot 308",
+            "vehicleClass": "LARGE",
+            "vehicleState": "AVAILABLE",
+            "description": "Super fast turbo engine<br>Capacity <b>9 person</b><br>Price <b>7USD/h</b>",
+            "image": "content_peugot_308_sw.jpg"
+        }, {
+            "id": 4,
+            "model": "XXL - Citroën Jumpy",
+            "vehicleClass": "FULLVAN",
+            "vehicleState": "AVAILABLE",
+            "description": "For big family<br>Engine <b>136 bhp</b><br>Price <b>9.99USD/h</b>",
+            "image": "content_citroen_jumpy.jpg"
+        }];
+
+
+        return {
+            getVehicles: function (value) {
+                return vehicle.slice(value)
+            },
+            getCarInfo: function (id) {
+                //no search for now
+                return vehicle[id - 1]
+            }
+        }
+    }();
+    var SidebarService = function () {
+        var sidebar;
+        var clickListeners = [];
+
+        function init() {
+            sidebar = L.control.sidebar('sidebar', {
+                closeButton: true,
+                position: 'right',
+                autoPan: false
+            });
+            $(sidebar.getContainer())
+                .delegate("li", "click", function () {
+                    /* Unselect the currently selected item */
+                    console.log("clicked")
+                    var carId = $(this).data("id");
+                    clickListeners.forEach(function (listener) {
+                        listener(carId);
+                    })
+                })
+        }
+
+        function defineSidebarPosition(mapWidth, position) {
+            if (mapWidth && mapWidth / 2 > position) {
+                return "right"
+            }
+            return "left"
+        }
+
+        return {
+            getSidebar: function () {
+                if (!sidebar) {
+                    init()
+                }
+                return sidebar;
+            },
+            addClickListener: function (listener) {
+                clickListeners.push(listener);
+            },
+            show: function (marker, mapWidth, position) {
+                var data = MarkerService.getMarkerContent(marker);
+                $ul = document.createElement("ul");
+                var markup = "<li data-id='${id}'><img src='./images/${image}'><h3>${model}</h3><p>{{html description}}</p></li>";
+                $.template("carListItem", markup);
+                $.tmpl("carListItem", data.vehicles)
+                    .appendTo($ul);
+                this.getSidebar().setContent($ul);
+
+                this.getSidebar().show(defineSidebarPosition(mapWidth, position));
+            }
+        }
+    }();
+    var MarkerService = function () {
+        var markers,
+            activeMarker,
+            greenIcon, blueIcon;
+
+        function getMarkers(callback) {
+            $.ajax({
+                url: './data.json',
+                type: 'get',
+                dataType: 'json',
+                success: callback
+            });
+        }
+
+        function init(callback) {
+            markers = [];
+
+            greenIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            blueIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            getMarkers(function (markersData) {
+                markersData.vehicle.forEach(function (dataElement, i) {
+                    var marker = L.marker([dataElement.latitude, dataElement.longitude]);
+                    marker.options.data = {
+                        content: dataElement
+                    };
+                    marker.options.data.vehicles = VehicleService.getVehicles(i % 3);
+                    markers.push(marker);
+                });
+                callback();
+            })
+        }
+
+
+        function setActiveMarker(marker) {
+            if (marker) {
+                activeMarker = marker;
+                highlightMarker(activeMarker)
+            } else if (activeMarker) {
+                unhighlightMarker(activeMarker)
+                activeMarker = null;
+            }
+        }
+
+        function highlightMarker(marker) {
+            marker.setIcon(greenIcon);
+        }
+
+        function unhighlightMarker(marker) {
+            marker.setIcon(blueIcon);
+        }
+
+
+        return {
+            getMarkers: function (callback) {
+                if (!markers) {
+                    init(function () {
+                        callback(markers);
+                    });
+                } else {
+                    callback(markers);
+                }
+            },
+
+            getMarkerContent: function (marker) {
+                if (marker) {
+                    return marker.options.data;
+                } else if (activeMarker) {
+                    return activeMarker.options.data;
+                }
+            },
+
+            isActive: function () {
+                return !!activeMarker;
+            },
+
+            handleClick: function (marker) {
+                if (!activeMarker) {
+                    setActiveMarker(marker);
+                    return true;
+                }
+
+                if (marker != activeMarker) {
+                    unhighlightMarker(activeMarker);
+                    setActiveMarker(marker);
+                    return true;
+                }
+                setActiveMarker(false);
+                return false;
+            },
+            handleMouseOver: function (marker) {
+                highlightMarker(marker)
+            },
+            handleMouseOut: function (marker) {
+                if (marker != activeMarker) {
+                    unhighlightMarker(marker)
+                }
+            },
+            handleSidebarHide: function () {
+                setActiveMarker(false);
+            }
+        }
+
+
+    }();
+    var ViewsService = function () {
+        var views = ["#main-view", "#second-view", "#car-view"],
+            activeView = 0;
+
+        function changeActiveView(active) {
+            $(views[activeView]).hide()
+            activeView = active;
+            $(views[activeView]).show()
+        }
+
+        return {
+            getViews: function () {
+                return views
+            },
+
+            showVehicle: function (vehicle) {
+                var markup = "<img src='./images/${image}'><h3>${model}</h3><p>{{html description}}</p>";
+
+                changeActiveView(1)
+
+                //updateVehicleBlock
+                $(views[2]).empty();
+                $.template("vehicle", markup);
+                $.tmpl("vehicle", vehicle)
+                    .appendTo($(views[2]));
+                $(views[2]).click(function () {
+                    changeActiveView(0)
+                })
+
+            },
+            init: function () {
+
+            }
+        }
+    }();
+
+    function init() {
+        MapService.addSidebar(SidebarService.getSidebar());
+
+        MarkerService.getMarkers(function (markers) {
+            MapService.setMarkers(markers)
+            SidebarService.addClickListener(
+                function (id) {
+                    ViewsService.showVehicle(VehicleService.getCarInfo(id))
+                }
+            )
+        });
+    }
+    $(document).ready(init);
+
+</script>
+</body>
+
+</html>

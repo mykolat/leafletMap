@@ -12,14 +12,12 @@
 
     <style>
         body {
-            /*padding: 30px;*/
             font-family: sans-serif;
         }
 
         #map {
             width: 100%;
             height: 600px;
-            /*border-radius: 10px;*/
         }
 
         #sidebar {
@@ -27,28 +25,36 @@
             font-family: monospace;
         }
     </style>
+
 </head>
 
 <body>
-<div id="sidebar"></div>
-<div id="map"></div>
 
-<script
-        src="./bower_components/jquery/dist/jquery.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
+<div id="views">
+    <div class="view" id="main-view">
+        <div id="sidebar"></div>
+        <div id="map"></div>
+    </div>
+    <div class="view" style="display: none;" id="second-view">
+
+        <div id="car-view">
+
+        </div>
+    </div>
+</div>
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <script src="./bower_components/leaflet/dist/leaflet.js"></script>
 <script src="./src/L.Control.Sidebar.js"></script>
 <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js'></script>
-<link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet' />
+<link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet'/>
 
 <script>
-    var mapService = function () {
+    var MapService = function () {
         var map;
 
         function init() {
             map = L.map('map');
-//            256/1/1/0
             L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXlrb2xhdCIsImEiOiJjajB3ajEyNjQwMDB2MzNwOTN6NGszb2ZyIn0.1bVvnPjlL_cxJwXxwxWHpA', {
                 maxZoom: 18,
                 attribution: 'Map data &copy; OpenStreetMap contributors'
@@ -110,27 +116,30 @@
         }
 
     }();
-
     var VehicleService = function () {
         var vehicle = [{
+            "id": 1,
             "model": "S - Fiat 500 Cabrio",
             "vehicleClass": "SUBCOMPACT",
             "vehicleState": "AVAILABLE",
             "description": "Comfort trip<br>Max speed <b>190km/h</b><br>Price <b>2USD/h</b>",
             "image": "content_fiat_500.jpg"
         }, {
+            "id": 2,
             "model": "L - Peugeot 2008",
             "vehicleClass": "LUX",
             "vehicleState": "AVAILABLE",
             "description": "Fast turbo engine<br>Max speed <b>290km/h</b><br>Price <b>4USD/h</b>",
             "image": "content_peugot_2008.jpg"
         }, {
+            "id": 3,
             "model": "XL - Peugeot 308",
             "vehicleClass": "LARGE",
             "vehicleState": "AVAILABLE",
             "description": "Super fast turbo engine<br>Capacity <b>9 person</b><br>Price <b>7USD/h</b>",
             "image": "content_peugot_308_sw.jpg"
         }, {
+            "id": 4,
             "model": "XXL - Citroën Jumpy",
             "vehicleClass": "FULLVAN",
             "vehicleState": "AVAILABLE",
@@ -138,15 +147,20 @@
             "image": "content_citroen_jumpy.jpg"
         }];
 
+
         return {
             getVehicles: function (value) {
                 return vehicle.slice(value)
+            },
+            getCarInfo: function (id) {
+                //no search for now
+                return vehicle[id - 1]
             }
         }
     }();
-
     var SidebarService = function () {
         var sidebar;
+        var clickListeners = [];
 
         function init() {
             sidebar = L.control.sidebar('sidebar', {
@@ -154,6 +168,15 @@
                 position: 'right',
                 autoPan: false
             });
+            $(sidebar.getContainer())
+                .delegate("li", "click", function () {
+                    /* Unselect the currently selected item */
+                    console.log("clicked")
+                    var carId = $(this).data("id");
+                    clickListeners.forEach(function (listener) {
+                        listener(carId);
+                    })
+                })
         }
 
         function defineSidebarPosition(mapWidth, position) {
@@ -170,37 +193,22 @@
                 }
                 return sidebar;
             },
+            addClickListener: function (listener) {
+                clickListeners.push(listener);
+            },
             show: function (marker, mapWidth, position) {
                 var data = MarkerService.getMarkerContent(marker);
-                var text = "";//data.content.distance + "km";
-
-
-                text += "<ul>";
-                data.vehicles.forEach(function (element) {
-//                    var array = $.map(element, function (value, index) {
-//                        return [value];
-//                    });
-                    text += "<li>";
-                    text += "<img src='./images/" + element.image + "'>";
-                    text += "<h3>";
-                    text += element.model;
-                    text += "</h3>";
-                    text += "<p>";
-                    text += element.description;
-                    text += "</p>";
-
-                    text += "</li>"
-
-                });
-                text += "</ul>";
-
-                this.getSidebar().setContent(text);
+                $ul = document.createElement("ul");
+                var markup = "<li data-id='${id}'><img src='./images/${image}'><h3>${model}</h3><p>{{html description}}</p></li>";
+                $.template("carListItem", markup);
+                $.tmpl("carListItem", data.vehicles)
+                    .appendTo($ul);
+                this.getSidebar().setContent($ul);
 
                 this.getSidebar().show(defineSidebarPosition(mapWidth, position));
             }
         }
     }();
-
     var MarkerService = function () {
         var markers,
             activeMarker,
@@ -236,20 +244,14 @@
             });
             getMarkers(function (markersData) {
                 markersData.vehicle.forEach(function (dataElement, i) {
-
                     var marker = L.marker([dataElement.latitude, dataElement.longitude]);
-//                    var array = $.map(dataElement, function (value, index) {
-//                        return [value];
-//                    });
-
-                    marker.options.data = {content: dataElement};
-                    marker.options.data.vehicles = VehicleService.getVehicles(i % 3)
-//                        .marker.options.content = array;
-                    // marker.options.description = dataElement.description;
-                    markers.push(marker)
+                    marker.options.data = {
+                        content: dataElement
+                    };
+                    marker.options.data.vehicles = VehicleService.getVehicles(i % 3);
+                    markers.push(marker);
                 });
                 callback();
-
             })
         }
 
@@ -325,12 +327,55 @@
 
 
     }();
+    var ViewsService = function () {
+        var views = ["#main-view", "#second-view", "#car-view"],
+            activeView = 0;
 
-    mapService.addSidebar(SidebarService.getSidebar());
+        function changeActiveView(active) {
+            $(views[activeView]).hide()
+            activeView = active;
+            $(views[activeView]).show()
+        }
 
-    MarkerService.getMarkers(function (markers) {
-        mapService.setMarkers(markers)
-    });
+        return {
+            getViews: function () {
+                return views
+            },
+
+            showVehicle: function (vehicle) {
+                var markup = "<img src='./images/${image}'><h3>${model}</h3><p>{{html description}}</p>";
+
+                changeActiveView(1)
+
+                //updateVehicleBlock
+                $(views[2]).empty();
+                $.template("vehicle", markup);
+                $.tmpl("vehicle", vehicle)
+                    .appendTo($(views[2]));
+                $(views[2]).click(function () {
+                    changeActiveView(0)
+                })
+
+            },
+            init: function () {
+
+            }
+        }
+    }();
+
+    function init() {
+        MapService.addSidebar(SidebarService.getSidebar());
+
+        MarkerService.getMarkers(function (markers) {
+            MapService.setMarkers(markers)
+            SidebarService.addClickListener(
+                function (id) {
+                    ViewsService.showVehicle(VehicleService.getCarInfo(id))
+                }
+            )
+        });
+    }
+    $(document).ready(init);
 
 </script>
 </body>
