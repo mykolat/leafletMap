@@ -2,7 +2,7 @@
 
 ## Tamen stantem madefactis nec Androgeique et caerula
 
-Lorem markdownum tecto: enixa in pinnis Thermodontiaca, fine saxa sed hospita
+Lorem markdownum tecto: blah bla enixa in pinnis Thermodontiaca, fine saxa sed hospita
 Tmolus. Corruat ad dummodo dixit loqui audet fixit hoc coxerat firma *qua vir*.
 Retinacula nobis pisces [mediisque crudelis comminus o est, possent non,
 ita esse superis.
@@ -29,7 +29,5 @@ Iecur et manus indagine Maenalon, te fuerant ignorantia in pereat. Annos **me**
 Accedere intrepidum nautas te nunc quoque? Illas non: auras diu non curvataque
 Aeneas rudibusque cultros Peragit per, erat longique oculos retorserunt fecit.
 
-Ora nefando! Ad actis ingemuit succurritis cornu. Eandem conlapsus precando
-regnum. Veste tibi petit datura, aer fors diva quo irata Ancaeus corrigit
-forcipe Apollineam arcana Styga, petendum. Periuria Dianae ad conscia
+Periuria Dianae ad conscia
 **ulterius** ab parte efficerentque tuens; haec!
