@@ -4,29 +4,27 @@
 
 Lorem markdownum tecto: enixa in pinnis Thermodontiaca, fine saxa sed hospita
 Tmolus. Corruat ad dummodo dixit loqui audet fixit hoc coxerat firma *qua vir*.
-Retinacula nobis pisces [mediisque crudelis
-cultu](http://natas-omnem.net/postquamnon.aspx), comminus o est, possent non,
+Retinacula nobis pisces [mediisque crudelis comminus o est, possent non,
 ita esse superis.
 
 > Stygia uno cognati auxilium exsangui tibi; atra eadem candida! **Vultu deduxit
 > intrare**, essent.
 
-## Tollensque esset ingeniumque dextra purpureusque esse mentior
+### Tollensque esset ingeniumque dextra purpureusque esse mentior
 
 Tamen conubio fumis, ast duxere, et parant haec, excessere natus parum provolvi:
 facta. Facies Alcyonen levat fallacis *tenent*, et caede egesta adspexit.
-
-## Flectit aere nec arces Phobetora frigidus suaque
 
 Tantum temptat mille formamque in habitu est neque plerumque, inferias multo
 *fuerit nomenque ex* vires, respiramen. Modo ore tamen manus, quoque in ait
 causam senes. Pendenti cum, fama sibi: admovit Pasiphaen ne gloria egerat
 longam.
 
-Iecur et manus indagine Maenalon, te fuerant ignorantia in pereat. Annos **me**
-Hercule laesi ubi.
+I have a story about text changes made by different people
 
-## Me deorum cum tollens fores armiferos in
+Iecur et manus indagine Maenalon, te fuerant ignorantia in pereat. Annos **me**
+
+## Me deorum cum tollens fores armiferos in the sky
 
 Accedere intrepidum nautas te nunc quoque? Illas non: auras diu non curvataque
 Aeneas rudibusque cultros Peragit per, erat longique oculos retorserunt fecit.
